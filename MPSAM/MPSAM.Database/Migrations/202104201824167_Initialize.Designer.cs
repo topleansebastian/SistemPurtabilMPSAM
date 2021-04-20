@@ -13,7 +13,7 @@ namespace MPSAM.Database.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202104181737520_Initialize"; }
+            get { return "202104201824167_Initialize"; }
         }
         
         string IMigrationMetadata.Source

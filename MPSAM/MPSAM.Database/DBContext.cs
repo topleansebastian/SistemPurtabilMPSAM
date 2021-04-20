@@ -10,11 +10,11 @@ namespace MPSAM.Database
 {
     public class DBContext : DbContext
     {
-        public DBContext() : base("SistemPurtabilDatabase")
+        public DBContext() : base("SistemPurtabilDB")
         {
         }
 
-        public DbSet<Medic> Medici { get; set; }
-        public DbSet<Pacient> Pacienti { get; set; }
+        public DbSet<Medic> Medics { get; set; }
+        public DbSet<Pacient> Pacients { get; set; }
     }
 }
