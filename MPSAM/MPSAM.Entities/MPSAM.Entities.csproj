@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Administrator.cs" />
     <Compile Include="Medic.cs" />
     <Compile Include="Pacient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
