@@ -16,5 +16,6 @@ namespace MPSAM.Database
 
         public DbSet<Medic> Medics { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
     }
 }

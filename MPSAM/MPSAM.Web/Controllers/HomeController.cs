@@ -9,7 +9,7 @@ namespace MPSAM.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult FirstPage()
         {
             return View();
         }
@@ -32,20 +32,6 @@ namespace MPSAM.Web.Controllers
             {
                 return Json(new { status = true, message = "Autentificare realizata cu succes!" });
             }
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model MPSAM.Web.ViewModels.MedicLoginViewModels
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/LoginForm/main.css" rel="stylesheet" />
+    <link href="~/Content/LoginForm/util.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <span class="login100-form-title p-b-43">
+                        AUTENTIFICARE
+                    </span>
+
+                    <div class="wrap-input100">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "input100", @placeholder = "Nume utilizator*" })
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        @Html.PasswordFor(model => model.Password, new { @class = "input100", @placeholder = "Parolă*" })
+                        <span class="focus-input100"></span>
+
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <input type="submit" value="Autentificare" class="login100-form-btn" style="color:#222222;" />
+                    </div>
+                    <br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "font-weight: bold;" })
+                }
+
+                <div class="login100-more" style="background-image: url('../../Content/LoginForm/loginPhoto.jpeg'); opacity:0.7;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
