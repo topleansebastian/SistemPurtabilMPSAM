@@ -138,13 +138,28 @@
     <Compile Include="ViewModels\AdministratorViewModels.cs" />
     <Compile Include="ViewModels\MedicViewModels.cs" />
     <Compile Include="ViewModels\PacientViewModels.cs" />
+    <Compile Include="ViewModels\SharedViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\Login.css" />
+    <Content Include="Content\css\material-dashboard-rtl.css" />
+    <Content Include="Content\css\material-dashboard.css" />
+    <Content Include="Content\css\material-dashboard.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Content\index-css.css" />
+    <Content Include="Content\js\bootstrap-material-design.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\material-dashboard.js" />
+    <Content Include="Content\js\material-dashboard.min.js" />
+    <Content Include="Content\js\popper.min.js" />
     <Content Include="Content\LoginForm\loginPhoto.jpeg" />
     <Content Include="Content\LoginForm\main.css" />
     <Content Include="Content\LoginForm\util.css" />
@@ -154,6 +169,41 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\css\material-dashboard.css.map" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\js\material-dashboard.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -184,6 +234,10 @@
     <Content Include="Views\Administrator\Dashboard.cshtml" />
     <Content Include="Views\Medic\Login.cshtml" />
     <Content Include="Views\Pacient\Login.cshtml" />
+    <Content Include="Views\Administrator\_Layout.cshtml" />
+    <Content Include="Views\Administrator\DisplayDoctors.cshtml" />
+    <Content Include="Views\Administrator\DoctorsTable.cshtml" />
+    <Content Include="Views\Administrator\CreateDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -210,6 +264,10 @@
     <ProjectReference Include="..\MPSAM.Entities\MPSAM.Entities.csproj">
       <Project>{F79413B2-5F5E-40DF-986E-47426632F9AF}</Project>
       <Name>MPSAM.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPSAM.Services\MPSAM.Services.csproj">
+      <Project>{1597C595-4883-4008-8C77-46C616188F7A}</Project>
+      <Name>MPSAM.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
