@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202104211856237_AddAdm.designer.cs">
       <DependentUpon>202104211856237_AddAdm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104251819556_RenameTableToDoctors.cs" />
+    <Compile Include="Migrations\202104251819556_RenameTableToDoctors.designer.cs">
+      <DependentUpon>202104251819556_RenameTableToDoctors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104211856237_AddAdm.resx">
       <DependentUpon>202104211856237_AddAdm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104251819556_RenameTableToDoctors.resx">
+      <DependentUpon>202104251819556_RenameTableToDoctors.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

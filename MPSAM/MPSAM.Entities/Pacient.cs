@@ -10,7 +10,7 @@ namespace MPSAM.Entities
     {
         public int ID { get; set; }
         public int IDMedic { get; set; }
-        public virtual Medic Medic { get; set; }
+        public virtual Doctor Medic { get; set; }
         public string Nume { get; set; }
         public string Prenume { get; set; }
         public string CNP { get; set; }

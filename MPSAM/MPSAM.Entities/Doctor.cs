@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MPSAM.Entities
 {
-    public class Medic
+    public class Doctor
     {
         public int ID { get; set; }
         public string Nume { get; set; }

@@ -22,7 +22,7 @@ namespace MPSAM.Web.Controllers
         {
             using (var context = new DBContext())
             {
-                bool isValid = context.Medics.Any(x => x.Email == model.Email && x.Parola == model.Password);
+                bool isValid = context.Doctors.Any(x => x.Email == model.Email && x.Parola == model.Password);
                 if (isValid)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);

@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administrator.cs" />
-    <Compile Include="Medic.cs" />
+    <Compile Include="Doctor.cs" />
     <Compile Include="Pacient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -22,7 +22,7 @@ namespace MPSAM.Web.Controllers
         public ActionResult Validate(string email, string password)
         {
             DBContext context = new DBContext();
-            var medic = context.Medics.FirstOrDefault(m=> m.Email == email && m.Parola == password);
+            var medic = context.Doctors.FirstOrDefault(m=> m.Email == email && m.Parola == password);
 
             if (medic == null)
             {
