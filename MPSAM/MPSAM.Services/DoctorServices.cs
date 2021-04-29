@@ -81,6 +81,39 @@ namespace MPSAM.Services
             catch (DbEntityValidationException e)
             { }
         }
+        //update doctor in database
+        public void UpdateDoctor(Doctor doctor)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    context.Entry(doctor).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
+        //delete a doctor from database
+        public void DeleteDoctor(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var doctor = context.Doctors.Find(ID);
+                context.Doctors.Remove(doctor);
+                context.SaveChanges();
+            }
+        }
+        //get one doctor searched by ID
+        public Doctor GetDoctor(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Doctors.Where(p => p.ID == ID).FirstOrDefault();
+            }
+        }
         //here is applied Singleton Design Pattern
         public static DoctorServices ClassObject
         {

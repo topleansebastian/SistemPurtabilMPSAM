@@ -1,0 +1,131 @@
+﻿@model MPSAM.Web.ViewModels.EditDoctorViewModel
+@{
+    ViewBag.Title = "Edit doctor";
+}
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<hr />
+<br />
+<center><h2>MODIFICARE MEDIC</h2></center>
+<br />
+<br />
+<br />
+<div class="container" align="center">
+    <br />
+    <form id="editDoctor">
+        <input type="hidden" name="ID" value="@Model.ID" />
+        <left><h4>Date personale</h4></left>
+        <br />
+        <div class="form-row">
+            <div class="col">
+                <label>Nume<span class="text-danger">*</span></label>
+                <input name="Nume" id="Nume" class="form-control form-control-lg" value="@Model.Nume" />
+                <label id="lblErrorNume" class="alert-danger"></label>
+            </div>
+            <div class="col">
+                <label>Prenume<span class="text-danger">*</span></label>
+                <input name="Prenume" id="Prenume" class="form-control form-control-lg" value="@Model.Prenume" />
+                <label id="lblErrorPrenume" class="alert-danger"></label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Telefon<span class="text-danger">*</span></label>
+                <input name="Telefon" id="Telefon" class="form-control form-control-lg" value="@Model.Telefon" />
+                <label id="lblErrorTelefon" class="alert-danger"></label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Cod parafa<span class="text-danger">*</span></label>
+                <input name="CodParafa" id="CodParafa" class="form-control form-control-lg" value="@Model.CodParafa" />
+                <label id="lblErrorCodParafa" class="alert-danger"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Cabinet</label>
+            <input type="text" name="Cabinet" class="form-control" value="@Model.Cabinet" />
+        </div>
+        <left><h4>Date aferente contului</h4></left>
+        <br />
+        <div class="form-row">
+            <div class="col">
+                <label>Email<span class="text-danger">*</span></label>
+                <input name="Email" id="Email" class="form-control form-control-lg" value="@Model.Email" />
+                <label id="lblErrorEmail" class="alert-danger"></label>
+            </div>
+            <div class="col">
+                <label>Parola<span class="text-danger">*</span></label>
+                <input name="Parola" id="Parola" class="form-control form-control-lg" value="@Model.Parola" />
+                <label id="lblErrorParola" class="alert-danger"></label>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <button id="saveBtn" type="button" class="Btn">Salvare</button>
+            <button id="cancelBtn" type="button" class="Btn">Anulare</button>
+        </div>
+    </form>
+
+</div>
+<br />
+<br />
+<script>
+    $("#saveBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        var re = /^[a-zA-Z-]*$/;
+        var reTelefon = /^[0-9+]*$/;
+        var reEmail = new RegExp(/^[+a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+        if ($("#Nume").val() == "" || (!re.test($("#Nume").val()))) {
+            sweetAlert("Câmpul nume nu este valid", "", "error");
+            document.getElementById('lblErrorNume').innerHTML = 'Câmpul nu este valid';
+        }
+        else if ($("#Prenume").val() == "" || (!re.test($("#Prenume").val()))) {
+            sweetAlert("Câmpul prenume nu este valid", "", "error");
+            document.getElementById('lblErrorPrenume').innerHTML = 'Câmpul nu este valid';
+
+        }
+        else if ($("#Email").val() == "" || (!reEmail.test($("#Email").val()))) {
+            sweetAlert("Câmpul email nu este valid", "", "error");
+            document.getElementById('lblErrorEmail').innerHTML = 'Câmpul nu este valid';
+        }
+        else if ($("#Telefon").val() == "" || (!reTelefon.test($("#Telefon").val()))) {
+            sweetAlert("Câmpul telefon nu este valid", "", "error");
+            document.getElementById('lblErrorTelefon').innerHTML = 'Câmpul nu este valid';
+        }
+        else if ($("#CodParafa").val() == "") {
+            sweetAlert("Câmpul cod parafa nu este valid", "", "error");
+            document.getElementById('lblErrorCodParafa').innerHTML = 'Câmpul nu este valid';
+        }
+        else if ($("#Parola").val() == "") {
+            sweetAlert("Câmpul parola nu este valid", "", "error");
+            document.getElementById('lblErrorParola').innerHTML = 'Câmpul nu este valid';
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Administrator/EditDoctor',
+                data: $("#editDoctor").serialize()
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusActionTC();
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Failed");
+                });
+        }
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusActionTC();
+    });
+    function focusActionTC() {
+        $('html, body').animate({
+            scrollTop: $("#tableContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
+

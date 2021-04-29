@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace MPSAM.Web.Controllers
 {
-    public class MedicController : Controller
+    public class DoctorController : Controller
     {
         [HttpGet]
         public ActionResult Login()
@@ -18,7 +18,7 @@ namespace MPSAM.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(MedicLoginViewModels model)
+        public ActionResult Login(DoctorLoginViewModels model)
         {
             using (var context = new DBContext())
             {
@@ -26,7 +26,7 @@ namespace MPSAM.Web.Controllers
                 if (isValid)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    return RedirectToAction("Dashboard", "Medic");
+                    return RedirectToAction("Dashboard", "Doctor");
                 }
                 ModelState.AddModelError("", "Emailul sau parola sunt invalide");
 
