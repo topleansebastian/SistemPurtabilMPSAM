@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RenameTableToDoctors : DbMigration
+    public partial class ModDate : DbMigration
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Medics", newName: "Doctors");
+            AlterColumn("dbo.Pacients", "DataNasterii", c => c.String());
         }
         
         public override void Down()
         {
-            RenameTable(name: "dbo.Doctors", newName: "Medics");
+            AlterColumn("dbo.Pacients", "DataNasterii", c => c.DateTime(nullable: false));
         }
     }
 }

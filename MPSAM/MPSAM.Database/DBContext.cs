@@ -10,7 +10,7 @@ namespace MPSAM.Database
 {
     public class DBContext : DbContext
     {
-        public DBContext() : base("SistemPurtabilDB")
+        public DBContext() : base("DefaultConnection")
         {
         }
 
