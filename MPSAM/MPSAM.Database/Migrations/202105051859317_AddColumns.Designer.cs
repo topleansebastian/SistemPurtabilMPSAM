@@ -7,13 +7,13 @@ namespace MPSAM.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class RenameTableToDoctors : IMigrationMetadata
+    public sealed partial class AddColumns : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RenameTableToDoctors));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddColumns));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104251819556_RenameTableToDoctors"; }
+            get { return "202105051859317_AddColumns"; }
         }
         
         string IMigrationMetadata.Source

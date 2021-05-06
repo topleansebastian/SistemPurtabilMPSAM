@@ -3,12 +3,22 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initialize : DbMigration
+    public partial class New : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Medics",
+                "dbo.Administrators",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Utilizator = c.String(),
+                        Parola = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.Doctors",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -62,17 +72,18 @@
                         Medic_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Medics", t => t.Medic_ID)
+                .ForeignKey("dbo.Doctors", t => t.Medic_ID)
                 .Index(t => t.Medic_ID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Pacients", "Medic_ID", "dbo.Medics");
+            DropForeignKey("dbo.Pacients", "Medic_ID", "dbo.Doctors");
             DropIndex("dbo.Pacients", new[] { "Medic_ID" });
             DropTable("dbo.Pacients");
-            DropTable("dbo.Medics");
+            DropTable("dbo.Doctors");
+            DropTable("dbo.Administrators");
         }
     }
 }

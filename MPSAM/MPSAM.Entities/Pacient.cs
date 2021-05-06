@@ -16,7 +16,7 @@ namespace MPSAM.Entities
         public string CNP { get; set; }
         public string Sex { get; set; }
         public int Varsta { get; set; }
-        public DateTime DataNasterii { get; set; }
+        public string DataNasterii { get; set; }
         public string Adresa { get; set; }
         public string Localitate { get; set; }
         public string Judet { get; set; }
@@ -24,6 +24,7 @@ namespace MPSAM.Entities
         public string Email { get; set; }
         public string Ocupatie { get; set; }
         public string LocDeMunca { get; set; }
+        public string GrupSanguin { get; set; }
         public string RH { get; set; }
         public string Alergii { get; set; }
         public string Inaltime { get; set; }
@@ -40,7 +41,6 @@ namespace MPSAM.Entities
         public string Suflu { get; set; }
         public string Frecventa { get; set; }
         public string Aritmii { get; set; }
-        public string Username { get; set; }
         public string Parola { get; set; }
     }
 }

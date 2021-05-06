@@ -216,6 +216,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Doctor\Dashboard.cshtml" />
+    <Content Include="Views\Doctor\DisplayPacients.cshtml" />
+    <Content Include="Views\Doctor\PacientsTable.cshtml" />
+    <Content Include="Views\Doctor\CreatePacient.cshtml" />
     <None Include="Views\Doctor\_Layout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
