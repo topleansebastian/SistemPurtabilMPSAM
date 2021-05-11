@@ -64,6 +64,10 @@
     <Compile Include="Migrations\202105051954421_ModDate.designer.cs">
       <DependentUpon>202105051954421_ModDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105081038362_RecomTable.cs" />
+    <Compile Include="Migrations\202105081038362_RecomTable.designer.cs">
+      <DependentUpon>202105081038362_RecomTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105051954421_ModDate.resx">
       <DependentUpon>202105051954421_ModDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105081038362_RecomTable.resx">
+      <DependentUpon>202105081038362_RecomTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
