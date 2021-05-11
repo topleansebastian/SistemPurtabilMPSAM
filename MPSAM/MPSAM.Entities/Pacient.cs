@@ -42,5 +42,6 @@ namespace MPSAM.Entities
         public string Frecventa { get; set; }
         public string Aritmii { get; set; }
         public string Parola { get; set; }
+        public List<Consultation> Consultations { get; set; }
     }
 }

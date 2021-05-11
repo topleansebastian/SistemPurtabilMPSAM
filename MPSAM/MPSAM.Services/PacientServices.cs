@@ -2,6 +2,7 @@
 using MPSAM.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,53 @@ namespace MPSAM.Services
                 {
                     return context.Pacients.Count();
                 }
+            }
+        }
+        //get one pacient searched by ID
+        public Pacient GetPacient(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Pacients.Where(p => p.ID == ID).FirstOrDefault();
+            }
+        }
+        //save in database, Pacients tabel
+        public void SavePacient(Pacient pacient)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    context.Pacients.Add(pacient);
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
+        //update pacient in database
+        public void UpdatePacient(Pacient pacient)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    context.Entry(pacient).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
+        //delete a pacient from database
+        public void DeletePacient(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var pacient = context.Pacients.Find(ID);
+                context.Pacients.Remove(pacient);
+                context.SaveChanges();
             }
         }
         //get all pacients

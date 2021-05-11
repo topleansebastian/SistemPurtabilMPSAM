@@ -1,25 +1,26 @@
-﻿@model List<MPSAM.Entities.Doctor>
+﻿@model MPSAM.Web.ViewModels.EditPacientViewModel
 @{
-    ViewBag.Title = "CreatePacient";
+    ViewBag.Title = "Edit pacient";
+
 }
 @Scripts.Render("~/bundles/jquery")
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <hr />
-<br />
-<center><h2>ADĂUGARE PACIENT</h2></center>
+<center><h2>EDITARE PACIENT</h2></center>
 <br />
 <br />
 <br />
 <div class="container">
     <label><span class="text-danger">* </span>Câmpuri obligatorii</label><br />
     <br />
-    <form id="createPacient">
+    <form id="editPacient">
+        <input type="hidden" name="ID" value="@Model.ID" />
         <div class="form-row">
             <div class="col">
                 <label>Medic responsabil<span class="text-danger">*</span></label>
                 <select name="IDMedic" id="IDMedic" class="form-control form-control-lg">
-                    @foreach (var doctor in Model)
+                    @foreach (var doctor in Model.Doctors)
                     {
 
                         <option value="@doctor.ID">@doctor.Nume @doctor.Prenume</option>
@@ -39,34 +40,34 @@
         <div class="form-row">
             <div class="col">
                 <label>Nume<span class="text-danger">*</span></label>
-                <input name="Nume" id="Nume" class="form-control form-control-lg" />
+                <input name="Nume" id="Nume" class="form-control form-control-lg" value="@Model.Nume" />
                 <label id="lblErrorNume" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>Prenume<span class="text-danger">*</span></label>
-                <input name="Prenume" id="Prenume" class="form-control form-control-lg" />
+                <input name="Prenume" id="Prenume" class="form-control form-control-lg" value="@Model.Prenume" />
                 <label id="lblErrorPrenume" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>CNP<span class="text-danger">*</span><span><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" title="Dupa completarea CNP'ului, sexul, data nasterii si varsta se vor autocompleta"></i></span></label>
-                <input name="CNP" class="form-control form-control-lg" id="CNP" />
+                <input name="CNP" class="form-control form-control-lg" id="CNP" value="@Model.CNP" />
                 <label id="lblErrorCNP" class="alert-danger"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <label>Data nasterii</label>
-                <input name="DataNasterii" id="DataNasterii" class="form-control form-control-lg" readonly />
+                <input name="DataNasterii" id="DataNasterii" class="form-control form-control-lg" readonly value="@Model.DataNasterii" />
                 <label id="lblErrorDataNasterii" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>Varsta</label>
-                <input name="Varsta" id="Varsta" class="form-control form-control-lg" readonly />
+                <input name="Varsta" id="Varsta" class="form-control form-control-lg" readonly value="@Model.Varsta" />
                 <label id="lblErrorVarsta" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>Sex</label>
-                <input name="Sex" id="Sex" class="form-control form-control-lg" readonly />
+                <input name="Sex" id="Sex" class="form-control form-control-lg" readonly value="@Model.Sex" />
                 <label id="lblErrorSex" class="alert-danger"></label>
             </div>
         </div>
@@ -74,24 +75,24 @@
         <div class="form-row">
             <div class="col">
                 <label>Email<span class="text-danger">*</span></label>
-                <input name="Email" id="Email" class="form-control form-control-lg" />
+                <input name="Email" id="Email" class="form-control form-control-lg" value="@Model.Email" />
                 <label id="lblErrorEmail" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>Telefon<span class="text-danger">*</span></label>
-                <input name="Telefon" id="Telefon" class="form-control form-control-lg" />
+                <input name="Telefon" id="Telefon" class="form-control form-control-lg" value="@Model.Telefon" />
                 <label id="lblErrorTelefon" class="alert-danger"></label>
             </div>
             <div class="col">
                 <label>Parola cont<span class="text-danger">*</span></label>
-                <input name="Parola" id="Parola" class="form-control form-control-lg" />
+                <input name="Parola" id="Parola" class="form-control form-control-lg" value="@Model.Parola" />
                 <label id="Parola" class="alert-danger"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <label>Adresa</label>
-                <input name="Adresa" class="form-control form-control-lg" />
+                <input name="Adresa" class="form-control form-control-lg" value="@Model.Adresa" />
             </div>
             <div class="col">
                 <label>Localitate</label>
@@ -102,7 +103,7 @@
                     <option value="Bucuresti">Bucuresti</option>
                     <option value="Iasi">Iasi</option>
                 </datalist>
-                <input name="Localitate" id="Localitate" autoComplete="on" list="LocalitateList" class="form-control form-control-lg" />
+                <input name="Localitate" id="Localitate" autoComplete="on" list="LocalitateList" class="form-control form-control-lg" value="@Model.Localitate" />
             </div>
             <div class="col">
                 <label>Judet</label>
@@ -112,18 +113,18 @@
                     <option value="Cluj">Cluj</option>
                     <option value="Iasi">Iasi</option>
                 </datalist>
-                <input name="Judet" id="Judet" autoComplete="on" list="JudetList" class="form-control form-control-lg" />
+                <input name="Judet" id="Judet" autoComplete="on" list="JudetList" class="form-control form-control-lg" value="@Model.Judet" />
             </div>
         </div>
         <br />
         <div class="form-row">
             <div class="col">
                 <label>Ocupatie</label>
-                <input name="Ocupatie" id="Ocupatie" class="form-control form-control-lg" />
+                <input name="Ocupatie" id="Ocupatie" class="form-control form-control-lg" value="@Model.Ocupatie" />
             </div>
             <div class="col">
                 <label>Loc de munca</label>
-                <input name="LocDeMunca" id="LocDeMunca" class="form-control form-control-lg" />
+                <input name="LocDeMunca" id="LocDeMunca" class="form-control form-control-lg" value="@Model.LocDeMunca" />
             </div>
             <div class="col">
 
@@ -142,7 +143,7 @@
                     <option value="AII">AII</option>
                     <option value="BIII">BIII</option>
                 </datalist>
-                <input name="GrupSanguin" id="GrupSanguin" autoComplete="on" list="GrupSanguinList" class="form-control form-control-lg" />
+                <input name="GrupSanguin" id="GrupSanguin" autoComplete="on" list="GrupSanguinList" class="form-control form-control-lg" value="@Model.GrupSanguin" />
             </div>
             <div class="col">
                 <label>Rh<span class="text-danger">*</span></label><br />
@@ -150,7 +151,7 @@
                     <option value="Pozitiv">Pozitiv</option>
                     <option value="Negativ">Negativ</option>
                 </datalist>
-                <input name="Rh" id="Rh" autoComplete="on" list="RhList" class="form-control form-control-lg" />
+                <input name="Rh" id="Rh" autoComplete="on" list="RhList" class="form-control form-control-lg" value="@Model.RH" />
             </div>
             <div class="col">
 
@@ -160,11 +161,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Inaltime<span class="text-danger">*</span></label>
-                <input name="Inaltime" class="form-control form-control-lg" />
+                <input name="Inaltime" class="form-control form-control-lg" value="@Model.Inaltime" />
             </div>
             <div class="col">
                 <label>Greutate<span class="text-danger">*</span></label>
-                <input name="Greutate" class="form-control form-control-lg" />
+                <input name="Greutate" class="form-control form-control-lg" value="@Model.Greutate" />
             </div>
             <div class="col">
 
@@ -174,11 +175,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Tegumente mucoase</label>
-                <input name="TegumenteMucoase" class="form-control form-control-lg" />
+                <input name="TegumenteMucoase" class="form-control form-control-lg" value="@Model.TegumenteMucoase" />
             </div>
             <div class="col">
                 <label>Tesut subcutanat</label>
-                <input name="TesutSubcutanat" class="form-control form-control-lg" />
+                <input name="TesutSubcutanat" class="form-control form-control-lg" value="@Model.TesutSubcutanat" />
             </div>
             <div class="col">
 
@@ -188,11 +189,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Antecedente fiziologice</label>
-                <input name="AntecedenteFiziologice" class="form-control form-control-lg" />
+                <input name="AntecedenteFiziologice" class="form-control form-control-lg" value="@Model.AntecedenteFiziologice" />
             </div>
             <div class="col">
                 <label>Antecedente patologice</label>
-                <input name="AntecedentePatologice" class="form-control form-control-lg" />
+                <input name="AntecedentePatologice" class="form-control form-control-lg" value="@Model.AntecedentePatologice" />
             </div>
             <div class="col">
 
@@ -202,11 +203,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Alergii<span class="text-danger">*</span></label>
-                <input name="Alergii" class="form-control form-control-lg" />
+                <input name="Alergii" class="form-control form-control-lg" value="@Model.Alergii" />
             </div>
             <div class="col">
                 <label>Conditii mediu</label>
-                <input name="ConditiiMediu" class="form-control form-control-lg" />
+                <input name="ConditiiMediu" class="form-control form-control-lg" value="@Model.ConditiiMediu" />
             </div>
             <div class="col">
 
@@ -216,11 +217,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Internari</label>
-                <textarea name="Internari" class="form-control form-control-lg" style="height:150px;"></textarea>
+                <textarea name="Internari" class="form-control form-control-lg" style="height:150px;" value="@Model.Internari"></textarea>
             </div>
             <div class="col">
                 <label>Motive internari</label>
-                <textarea name="MotiveInternari" class="form-control form-control-lg" style="height:150px;"></textarea>
+                <textarea name="MotiveInternari" class="form-control form-control-lg" style="height:150px;" value="@Model.MotiveInternari"></textarea>
             </div>
             <div class="col">
 
@@ -230,11 +231,11 @@
         <div class="form-row">
             <div class="col">
                 <label>Ganglioni</label>
-                <input name="Ganglioni" class="form-control form-control-lg" />
+                <input name="Ganglioni" class="form-control form-control-lg" value="@Model.Ganglioni" />
             </div>
             <div class="col">
                 <label>Zgomot</label>
-                <select name="Zgomot" id="Zgomot" class="form-control form-control-lg">
+                <select name="Zgomot" id="Zgomot" class="form-control form-control-lg" value="@Model.Zgomot">
                     <option value="Sistolic">Sistolic</option>
                     <option value="Diastolic">Diastolic</option>
                     <option value="Protodiastolic">Protodiastolic</option>
@@ -249,7 +250,7 @@
         <div class="form-row">
             <div class="col">
                 <label>Suflu</label>
-                <select name="Suflu" id="Suflu" class="form-control form-control-lg">
+                <select name="Suflu" id="Suflu" class="form-control form-control-lg" value="@Model.Suflu">
                     <option value="Cardiac organic">Cardiac organic</option>
                     <option value="Cardiac organofunctional">Cardiac organofunctional</option>
                     <option value="Cardiac functional">Cardiac functional</option>
@@ -257,7 +258,7 @@
             </div>
             <div class="col">
                 <label>Frecventa</label>
-                <input name="Frecventa" class="form-control form-control-lg" />
+                <input name="Frecventa" class="form-control form-control-lg" value="@Model.Frecventa" />
             </div>
             <div class="col">
 
@@ -267,7 +268,7 @@
         <div class="form-row">
             <div class="col">
                 <label>Aritmii</label>
-                <select name="Aritmii" id="Aritmii" class="form-control form-control-lg">
+                <select name="Aritmii" id="Aritmii" class="form-control form-control-lg" value="@Model.Aritmii">
                     <option value="Ritm cardiac normal">Ritm cardiac normal</option>
                     <option value="Tahicardie">Tahicardie</option>
                     <option value="Bradicardie">Bradicardie</option>
@@ -278,7 +279,7 @@
         <br />
         <br />
         <div style="text-align: center;">
-            <button id="saveBtn" type="button" class="Btn">Salvare</button>
+            <button id="updateBtn" type="button" class="Btn">Salvare</button>
             <button id="cancelBtn" type="button" class="Btn">Anulare</button>
         </div>
     </form>
@@ -330,12 +331,8 @@
 
         });
     });
+    $("#updateBtn").click(function () {
 
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-
-    $("#saveBtn").click(function () {
         var searchValue = $("#searchTxt").val();
         var re = /^[a-zA-Z-]*$/;
         var cnp = $("#CNP").val();
@@ -343,6 +340,7 @@
         var reTelefon = /^[0-9+]*$/;
         var sex = cnp.substring(0, 1);
         var reEmail = new RegExp(/^[+a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+
         if ($("#Nume").val() == "" || (!re.test($("#Nume").val()))) {
             sweetAlert("Câmpul nume nu este valid", "", "error");
             document.getElementById('lblErrorNume').innerHTML = 'Câmpul nu este valid';
@@ -380,13 +378,13 @@
         else {
             $.ajax({
                 type: 'POST',
-                url: '/Doctor/CreatePacient',
-                data: $("#createPacient").serialize()
+                url: '/Doctor/EditPacient',
+                data: $("#editPacient").serialize()
             })
                 .done(function (response) {
                     $("#tableContainer").html(response);
                     $("#actionContainer").html("");
-                    focusActionTC();
+                    focusAction("tableContainer");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Failed");
@@ -404,3 +402,6 @@
         }, 1000);
     }
 </script>
+
+
+
