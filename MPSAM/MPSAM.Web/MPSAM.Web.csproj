@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdministratorViewModels.cs" />
+    <Compile Include="ViewModels\ConsultationViewModels.cs" />
     <Compile Include="ViewModels\DoctorViewModels.cs" />
     <Compile Include="ViewModels\PacientViewModels.cs" />
     <Compile Include="ViewModels\SharedViewModels.cs" />
@@ -219,6 +220,10 @@
     <Content Include="Views\Doctor\DisplayPacients.cshtml" />
     <Content Include="Views\Doctor\PacientsTable.cshtml" />
     <Content Include="Views\Doctor\CreatePacient.cshtml" />
+    <Content Include="Views\Doctor\EditPacient.cshtml" />
+    <Content Include="Views\Doctor\InfoPacient.cshtml" />
+    <Content Include="Views\Doctor\DisplayConsultations.cshtml" />
+    <Content Include="Views\Doctor\ConsultationsTable.cshtml" />
     <None Include="Views\Doctor\_Layout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
