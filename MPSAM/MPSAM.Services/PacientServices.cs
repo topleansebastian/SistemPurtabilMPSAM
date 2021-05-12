@@ -36,12 +36,33 @@ namespace MPSAM.Services
                 }
             }
         }
+        public string GetPacientCNPByID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Pacients.Where(p => p.ID == ID).Select(x => x.CNP).Single();
+            }
+        }
         //get one pacient searched by ID
         public Pacient GetPacient(int ID)
         {
             using (var context = new DBContext())
             {
                 return context.Pacients.Where(p => p.ID == ID).FirstOrDefault();
+            }
+        }
+        public int GetPacientIDByCNP(string CNP)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Pacients.Where(p => p.CNP != null && p.CNP == CNP).Select(x => x.ID).Single();
+            }
+        }
+        public Pacient GetPacientByCNP(string CNP)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Pacients.Where(p => p.CNP != null && p.CNP == CNP).FirstOrDefault();
             }
         }
         //save in database, Pacients tabel

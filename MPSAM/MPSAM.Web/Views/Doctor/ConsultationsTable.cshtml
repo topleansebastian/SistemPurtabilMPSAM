@@ -4,7 +4,7 @@
 }
 @Scripts.Render("~/bundles/jquery")
 <br />
-<center><h2>CONSULTATII</h2></center>
+<center><h2>CONSULTAȚII</h2></center>
 <br />
 <br />
 <div>
@@ -47,7 +47,6 @@
             <tr style=" font-family: 'Montserrat', sans-serif;font-size: 15px;color: #222222;font-weight: bold;text-align: center;">
                 <td>NUMAR</td>
                 <td>DATA</td>
-                <td>PACIENT</td>
                 <td>ACȚIUNI</td>
             </tr>
         </thead>
@@ -58,11 +57,9 @@
 
             <tr style="font-size:1.5rem">
                 <td style="text-transform: uppercase;">@consultation.ID</td>
-
                 <td>
                     @consultation.Data.ToString("dddd, dd MMMM yyyy")
                 </td>
-                <td>@consultation.IDPacient</td>
                 <td style="text-align: center;">
                     <button class="infoBtn Btn" data-id="@consultation.ID" data-pacientid="@consultation.IDPacient" data-toggle="tooltipInfoBtn" title="Detalii consultatie">
                         <i class="fa fa-file-text-o" aria-hidden="true"></i>

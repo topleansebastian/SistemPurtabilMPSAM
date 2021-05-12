@@ -69,6 +69,9 @@
                         <button class="deleteBtn Btn" data-id="@pacient.ID" data-toggle="tooltipDeleteBtn" title="Stergere pacient">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
+                        <button class="recomBtn Btn" data-id="@pacient.ID" data-toggle="tooltipRecomBtn" title="Adauga recomandare">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
                     </td>
                 </tr>
             }
@@ -214,6 +217,22 @@
                 }
             });
     });
+    $(".recomBtn").click(function () {
+        $.ajax({
+
+            url: '/Doctor/CreateRecommandation',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
     //used for pagination
     $(".pageBtn").click(function () {
         $.ajax({
@@ -238,6 +257,7 @@
         $('[data-toggle="tooltipDeleteBtn"]').tooltip();
         $('[data-toggle="tooltipSearch"]').tooltip();
         $('[data-toggle="tooltipReset"]').tooltip();
+        $('[data-toggle="tooltipRecomBtn"]').tooltip();
     });
 
     function focusAction() {

@@ -139,6 +139,7 @@
     <Compile Include="ViewModels\ConsultationViewModels.cs" />
     <Compile Include="ViewModels\DoctorViewModels.cs" />
     <Compile Include="ViewModels\PacientViewModels.cs" />
+    <Compile Include="ViewModels\RecommendationViewModels.cs" />
     <Compile Include="ViewModels\SharedViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,27 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen_v1.8.7\chosen-sprite.png" />
+    <Content Include="Content\chosen_v1.8.7\chosen.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen.jquery.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.jquery.min.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.min.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen.proto.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.proto.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\chosen.png" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\init.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\init.proto.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\jquery-1.12.4.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\jquery-3.2.1.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\oss-credit.png" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prism.css" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prism.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prototype-1.7.0.0.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\style.css" />
+    <Content Include="Content\chosen_v1.8.7\index.html" />
+    <Content Include="Content\chosen_v1.8.7\index.proto.html" />
+    <Content Include="Content\chosen_v1.8.7\options.html" />
     <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\material-dashboard-rtl.css" />
     <Content Include="Content\css\material-dashboard.css" />
@@ -205,6 +227,8 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Content\js\material-dashboard.js.map" />
+    <Content Include="Content\chosen_v1.8.7\composer.json" />
+    <Content Include="Content\chosen_v1.8.7\LICENSE.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -224,6 +248,10 @@
     <Content Include="Views\Doctor\InfoPacient.cshtml" />
     <Content Include="Views\Doctor\DisplayConsultations.cshtml" />
     <Content Include="Views\Doctor\ConsultationsTable.cshtml" />
+    <Content Include="Views\Doctor\CreateConsultation.cshtml" />
+    <Content Include="Views\Doctor\EditConsultation.cshtml" />
+    <Content Include="Views\Doctor\InfoConsultation.cshtml" />
+    <Content Include="Views\Doctor\CreateRecommandation.cshtml" />
     <None Include="Views\Doctor\_Layout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -2,6 +2,7 @@
 using MPSAM.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,46 @@ namespace MPSAM.Services
 {
     public class ConsultationServices
     {
+        //delete consultation from database
+        public void DeleteConsultation(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var consultation = context.Consultations.Find(ID);
+                context.Consultations.Remove(consultation);
+                context.SaveChanges();
+            }
+        }
+        public List<Consultation> GetConsultationsByPacientID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Consultations.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
+            }
+        }
+        //update consultation in database
+        public void UpdateConsultation(Consultation consultation)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    context.Entry(consultation).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
+        //get one consultation searched by ID
+        public Consultation GetConsultation(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Consultations.Where(p => p.ID == ID).FirstOrDefault();
+            }
+        }
         //get all the consultations
         public List<Consultation> GetAllTheConsultations()
         {
@@ -36,6 +77,21 @@ namespace MPSAM.Services
                     return context.Consultations.Count();
                 }
             }
+        }
+        //save in database, Products tabel
+        public void SaveConsultation(Consultation consultation)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    context.Entry(consultation.Pacient).State = System.Data.Entity.EntityState.Unchanged;
+                    context.Consultations.Add(consultation);
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
         }
         //get all the consultations
         public List<Consultation> GetConsultations(string search, int pageNumber)

@@ -95,6 +95,14 @@ namespace MPSAM.Web.ViewModels
     {
         public Pacient Pacient { get; set; }
         public Doctor Doctor { get; set; }
-        //public List<Consultation> Consultations { get; set; }
+        public List<Consultation> Consultations { get; set; }
+        public Doctor ConsultDoctor { get; set; }
     }
+    public class SelectedPacientsAndDoctors
+    {
+        public int IDPacient { get; set; }
+        public IEnumerable<Pacient> Pacients { get; set; }
+        public List<Doctor> Doctors { get; set; }
+    }
+    
 }

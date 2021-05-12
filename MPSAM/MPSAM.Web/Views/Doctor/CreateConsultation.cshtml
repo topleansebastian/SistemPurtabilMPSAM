@@ -1,0 +1,182 @@
+﻿@model MPSAM.Web.ViewModels.SelectedPacientsAndDoctors
+
+@{
+    ViewBag.Title = "Create";
+}
+@Scripts.Render("~/bundles/jquery")
+<!-- Chosen -->
+
+<link href="~/Content/chosen_v1.8.7/chosen.min.css" rel="stylesheet" />
+<script src="~/Content/chosen_v1.8.7/chosen.jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<hr />
+<br />
+
+<br />
+<br />
+<br />
+<div class="container">
+    <center><h2>ADĂUGARE CONSULTATIE</h2></center>
+    <br />
+    <br />
+    <form id="createConsultation">
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Medic<span class="text-danger">*</span></label>
+                <select name="IDDoctor" id="IDDoctor" class="form-control form-control-lg">
+                    @foreach (var doctor in Model.Doctors)
+                    {
+
+                        <option value="@doctor.ID">@doctor.Nume @doctor.Prenume</option>
+                    }
+                </select>
+            </div>
+            <div class="col">
+                <label>Pacient<span class="text-danger">*</span><span><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltipPacientID" title="Cautarea pacientului se face dupa CNP"></i></span></label>
+                <datalist id="PacientList">
+                    @foreach (var pacient in Model.Pacients)
+                    {
+                        <option value="@pacient.CNP">@pacient.CNP</option>
+                    }
+                </datalist>
+                <input name="CNP" id="CNP" autoComplete="on" list="PacientList" class="form-control form-control-lg" />
+            </div>
+            <div class="col">
+
+            </div>
+            <br />
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Data consultatie<span class="text-danger">*</span></label>
+                <input type="date" name="Data" class="form-control form-control-lg" id="Data" />
+                <label id="lblErrorData" class="alert-danger"></label>
+            </div>
+            <div class="col">
+                <label>Simptome</label>
+                <textarea name="Simptome" class="form-control form-control-lg"></textarea>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Diagnostic</label>
+                <datalist id="DiagnosticList">
+                <option value="K00.1 - Dinti supranumerari">K00.1 - Dinti supranumerari</option>
+                <option value="K00.2 - Anomalii de volum si de forma ale dintilor">K00.2 - Anomalii de volum si de forma ale dintilor</option>
+                <option value="K00.3 - Dinti patati">K00.3 - Dinti patati</option>
+                <option value="K02.0 - Caria limitata la smalt">K02.0 - Caria limitata la smalt</option>
+                <option value="K02.1 - Caria dentinei">K02.1 - Caria dentinei</option>
+                <option value="K02.2 - Caria cimentului">K02.2 - Caria cimentului</option>
+                <option value="K02.8 - Alte carii dentare">K02.8 - Alte carii dentare</option>
+                <option value="K03.2 - Eroziunea dintilor">K03.2 - Eroziunea dintilor</option>
+                </datalist>
+            <input name="Diagnostic" id="Diagnostic" autoComplete="on" list="DiagnosticList" class="form-control form-control-lg" />
+            </div>
+            <div class="col">
+                <label>Tratament</label>
+                <datalist id="TratamentList">
+                <option value="W43451001 - 5 - FLUOROURACIL EBEWE 50mg/ml">W43451001 - 5 - FLUOROURACIL EBEWE 50mg/ml</option>
+                <option value="W55319001 - AMOXICILINA SANDOZ 1000 mg">W55319001 - AMOXICILINA SANDOZ 1000 mg</option>
+                <option value="W41595001 - OSPEN 1000">W41595001 - OSPEN 1000</option>
+                <option value="W41594001 - OSPEN 1500">W41594001 - OSPEN 1500</option>
+                <option value="W41596001 - OSPEN 500">W41596001 - OSPEN 500</option>
+                <option value="W66957001 - ALGOCALMIN 500 mg/ml">W66957001 - ALGOCALMIN 500 mg/ml</option>
+            </datalist>
+            <input name="Tratament" id="Tratament" autoComplete="on" list="TratamentList" class="form-control form-control-lg" />
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label><span class="text-danger">* </span>Câmpuri obligatorii</label><br />
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <button id="saveBtn" type="button" class="Btn">Salvare</button>
+            <button id="cancelBtn" type="button" class="Btn">Anulare</button>
+        </div>
+
+    </form>
+</div>
+<br />
+<br />
+<script>
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltipPacientID"]').tooltip();
+    });
+
+    $("#saveBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        var reNumber = /^[0-9]*$/;
+        var valueDate = document.getElementById('Data').value;
+        if ($("#CNP").val() == "" || (!reNumber.test($("#CNP").val()))) {
+            sweetAlert("Câmpul pacient nu este valid", "", "error");
+            document.getElementById('lblErrorPacientID').innerHTML = 'Câmpul nu este valid';
+        } else if (!Date.parse(valueDate)) {
+            sweetAlert("Câmpul data nu este valid", "", "error");
+            document.getElementById('lblErrorData').innerHTML = 'Câmpul nu este valid';
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Doctor/CreateConsultation',
+                data: $("#createConsultation").serialize()
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusActionTC();
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Failed");
+                });
+        }
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusActionTC();
+    });
+    function focusActionTC() {
+        $('html, body').animate({
+            scrollTop: $("#tableContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
+
+
+
+

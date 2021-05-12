@@ -1,0 +1,32 @@
+﻿@model MPSAM.Web.ViewModels.ConsultationViewModels.InfoConsultationViewModel
+
+<div class="container">
+    <center><h3>Consultația# @Model.Consultation.ID</h3></center>
+    <br />
+    <br />
+    <ul class="list-group" style="font-size:14px;">
+        <li class="list-group-item active">Pacient: @Model.Pacient.CNP - @Model.Pacient.Nume @Model.Pacient.Prenume</li>
+        <li class="list-group-item">Numar consultatie: @Model.Consultation.ID</li>
+        <li class="list-group-item">Medic: @Model.Doctor.Nume @Model.Doctor.Prenume </li>
+        <li class="list-group-item">Data consultatie: @Model.Consultation.Data.ToString("dddd, dd MMMM yyyy")</li>
+        <li class="list-group-item">Simptome: @Model.Consultation.Simptome</li>
+        <li class="list-group-item">Diagnostic: @Model.Consultation.Diagnostic</li>
+        <li class="list-group-item">Tratament: @Model.Consultation.Tratament</li>
+    </ul>
+    
+    <br />
+    <div style="text-align: center;">
+        <button id="cancelBtn" type="button" class="Btn">Anulare</button>
+    </div>
+</div>
+<script>
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusActionTC();
+    });
+    function focusActionTC() {
+        $('html, body').animate({
+            scrollTop: $("#tableContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
