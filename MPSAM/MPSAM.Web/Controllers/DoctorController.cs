@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.Entity;
 using static MPSAM.Web.ViewModels.ConsultationViewModels;
 
 namespace MPSAM.Web.Controllers
@@ -22,7 +23,7 @@ namespace MPSAM.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(DoctorLoginViewModels model)
+        public ActionResult Login(DoctorLoginViewModels model )
         {
             using (var context = new DBContext())
             {
