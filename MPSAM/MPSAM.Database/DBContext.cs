@@ -19,5 +19,8 @@ namespace MPSAM.Database
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
+        public DbSet<Alarm> Alarms { get; set; }
+        public DbSet<Monitoring> Monitorings{ get; set; }
+        public DbSet<ActivityJournal> ActivityJournals { get; set; }
     }
 }

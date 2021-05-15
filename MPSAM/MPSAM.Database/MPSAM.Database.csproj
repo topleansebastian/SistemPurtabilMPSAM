@@ -72,6 +72,10 @@
     <Compile Include="Migrations\202105111927514_AddConsult.designer.cs">
       <DependentUpon>202105111927514_AddConsult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105151333109_AddTables.cs" />
+    <Compile Include="Migrations\202105151333109_AddTables.designer.cs">
+      <DependentUpon>202105151333109_AddTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105111927514_AddConsult.resx">
       <DependentUpon>202105111927514_AddConsult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105151333109_AddTables.resx">
+      <DependentUpon>202105151333109_AddTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
