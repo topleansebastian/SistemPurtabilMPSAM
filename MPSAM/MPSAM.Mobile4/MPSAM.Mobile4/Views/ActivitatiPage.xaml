@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MPSAM.Mobile4.Views.ActivitatiPage"
+             xmlns:vm="clr-namespace:MPSAM.Mobile4.ViewModels"
+             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:ActivitatiViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+          
+            <controls:Calendar x:Name="CalendarControl">
+
+                <controls:Calendar.EventTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                Padding="15,0,0,0">
+                            <Label
+                    Text="{Binding Nume}"
+                    FontAttributes="Bold"
+                    FontSize="Medium" />
+                            <Label
+                    Text="{Binding Descriere}"
+                    FontSize="Small"
+                    LineBreakMode="WordWrap" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:Calendar.EventTemplate>
+            </controls:Calendar>
+
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
