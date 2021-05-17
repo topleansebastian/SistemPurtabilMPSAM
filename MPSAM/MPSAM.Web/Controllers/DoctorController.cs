@@ -5,9 +5,11 @@ using MPSAM.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.Entity;
 using static MPSAM.Web.ViewModels.ConsultationViewModels;
 
 namespace MPSAM.Web.Controllers
@@ -21,7 +23,7 @@ namespace MPSAM.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(DoctorLoginViewModels model)
+        public ActionResult Login(DoctorLoginViewModels model )
         {
             using (var context = new DBContext())
             {
@@ -217,7 +219,7 @@ namespace MPSAM.Web.Controllers
             InfoPacientViewModel model = new InfoPacientViewModel();
             model.Pacient = PacientServices.ClassObject.GetPacient(ID);
             model.Doctor = DoctorServices.ClassObject.GetDoctor(model.Pacient.IDMedic);
-            //model.Consultations = ConsultationsService.ClassObject.GetConsultationsByPacientID(ID);
+            model.Consultations = ConsultationServices.ClassObject.GetConsultationsByPacientID(ID);
             return View(model);
         }
         [HttpGet]
@@ -248,6 +250,92 @@ namespace MPSAM.Web.Controllers
             {
                 return HttpNotFound();
             }
+        }
+        [HttpGet]
+        public ActionResult CreateConsultation(int id = 0)
+        {
+            SelectedPacientsAndDoctors model = new SelectedPacientsAndDoctors();
+
+            model.Pacients = PacientServices.ClassObject.GetAllThePacients();
+            model.Doctors = DoctorServices.ClassObject.GetAllTheDoctors();
+
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult CreateConsultation(NewConsultationViewModel model)
+        {
+
+            var newConsultation = new Consultation();
+            newConsultation.IDPacient = PacientServices.ClassObject.GetPacientIDByCNP(model.CNP);
+            newConsultation.IDDoctor = model.IDDoctor;
+            newConsultation.Data = model.Data;
+            newConsultation.Simptome = model.Simptome;
+            newConsultation.Diagnostic = model.Diagnostic;
+            newConsultation.Tratament = model.Tratament;
+            newConsultation.Pacient = PacientServices.ClassObject.GetPacientByCNP(model.CNP);
+            ConsultationServices.ClassObject.SaveConsultation(newConsultation);
+
+            return RedirectToAction("ConsultationsTable");
+        }
+        [HttpGet]
+        public ActionResult EditConsultation(int ID)
+        {
+            EditConsultationViewModel model = new EditConsultationViewModel();
+
+            var consultation = ConsultationServices.ClassObject.GetConsultation(ID);
+            model.Pacients = PacientServices.ClassObject.GetAllThePacients();
+            model.Doctors = DoctorServices.ClassObject.GetAllTheDoctors();
+
+            model.ID = consultation.ID;
+            model.CNP = PacientServices.ClassObject.GetPacientCNPByID(ID);
+            model.Data = consultation.Data;
+            model.Simptome = consultation.Simptome;
+            model.Diagnostic = consultation.Diagnostic;
+            model.Tratament = consultation.Tratament;
+            //model.PacientID = consultation.PacientID;
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult EditConsultation(EditConsultationViewModel model)
+        {
+            var existingConsultation = ConsultationServices.ClassObject.GetConsultation(model.ID);
+            existingConsultation.IDPacient = PacientServices.ClassObject.GetPacientIDByCNP(model.CNP);
+            existingConsultation.IDDoctor = model.IDDoctor;
+            existingConsultation.Data = model.Data;
+            existingConsultation.Simptome = model.Simptome;
+            existingConsultation.Diagnostic = model.Diagnostic;
+            existingConsultation.Tratament = model.Tratament;
+            existingConsultation.Pacient = PacientServices.ClassObject.GetPacientByCNP(model.CNP);
+           
+            ConsultationServices.ClassObject.UpdateConsultation(existingConsultation);
+
+            return RedirectToAction("ConsultationsTable");
+        }
+        [HttpPost]
+        public ActionResult DeleteConsultation(int ID)
+        {
+            ConsultationServices.ClassObject.DeleteConsultation(ID);
+            return RedirectToAction("ConsultationsTable");
+        }
+        [HttpGet]
+        public ActionResult InfoConsultation(int ID, int PacientID)
+        {
+            InfoConsultationViewModel model = new InfoConsultationViewModel();
+
+            model.Pacient = PacientServices.ClassObject.GetPacient(PacientID);
+            model.Consultation = ConsultationServices.ClassObject.GetConsultation(ID);
+            model.Doctor = DoctorServices.ClassObject.GetDoctor(model.Consultation.IDDoctor);
+
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult CreateRecommandation(int ID)
+        {
+            NewRecommendation model = new NewRecommendation();
+
+            model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+
+            return PartialView(model);
         }
     }
 }
