@@ -4,7 +4,7 @@
 }
 @Scripts.Render("~/bundles/jquery")
 <br />
-<center><h2>PACIENTI</h2></center>
+<center><h2>PACIENȚI</h2></center>
 <div>
     <br />
     <br />
@@ -66,11 +66,17 @@
                         <button class="editBtn Btn" data-id="@pacient.ID" data-toggle="tooltipEditBtn" title="Editare pacient">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </button>
-                        <button class="deleteBtn Btn" data-id="@pacient.ID" data-toggle="tooltipDeleteBtn" title="Stergere pacient">
+                        <button class="deleteBtn Btn" data-id="@pacient.ID" data-toggle="tooltipDeleteBtn" title="Ștergere pacient">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
-                        <button class="recomBtn Btn" data-id="@pacient.ID" data-toggle="tooltipRecomBtn" title="Adauga recomandare">
+                        <button class="recomBtn Btn" data-id="@pacient.ID" data-toggle="tooltipRecomBtn" title="Adaugă recomandare">
                             <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                        <button class="activityBtn Btn" data-id="@pacient.ID" data-toggle="tooltipActivityBtn" title="Adaugă activitate">
+                            <i class="fa fa-bicycle" aria-hidden="true"></i>
+                        </button>
+                        <button class="alarmBtn Btn" data-id="@pacient.ID" data-toggle="tooltipAlarmBtn" title="Adaugă alarmă">
+                            <i class="fa fa-bell" aria-hidden="true"></i>
                         </button>
                     </td>
                 </tr>
@@ -220,7 +226,23 @@
     $(".recomBtn").click(function () {
         $.ajax({
 
-            url: '/Doctor/CreateRecommandation',
+            url: '/Doctor/CreateRecommendation',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+    $(".activityBtn").click(function () {
+        $.ajax({
+
+            url: '/Doctor/CreateActivity',
             data: {
                 ID: $(this).attr('data-id')
             }
@@ -258,6 +280,7 @@
         $('[data-toggle="tooltipSearch"]').tooltip();
         $('[data-toggle="tooltipReset"]').tooltip();
         $('[data-toggle="tooltipRecomBtn"]').tooltip();
+        $('[data-toggle="tooltipActivityBtn"]').tooltip();
     });
 
     function focusAction() {

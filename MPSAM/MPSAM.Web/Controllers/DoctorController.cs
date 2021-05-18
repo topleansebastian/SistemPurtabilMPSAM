@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.Entity;
 using static MPSAM.Web.ViewModels.ConsultationViewModels;
+using static MPSAM.Web.ViewModels.ActivityViewModels;
 
 namespace MPSAM.Web.Controllers
 {
@@ -28,15 +29,14 @@ namespace MPSAM.Web.Controllers
             using (var context = new DBContext())
             {
                 bool isValid = context.Doctors.Any(x => x.Email == model.Email && x.Parola == model.Password);
-                //var IDDoctor = context.Doctors.Where(x => x.Email == model.Email && x.Parola == model.Password)
-                //                              .Select(x => x.ID).Single();
+                //int IDDoctor = context.Doctors.Where(x => x.Email == model.Email && x.Parola == model.Password)
+                //                              .Select(x => x.ID).First();
                 if (isValid)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
                     return RedirectToAction("Dashboard", "Doctor");
                 }
                 ModelState.AddModelError("", "Emailul sau parola sunt invalide");
-                //ViewBag.IDDoctor = IDDoctor;
                 return View();
             }
         }
@@ -220,6 +220,8 @@ namespace MPSAM.Web.Controllers
             model.Pacient = PacientServices.ClassObject.GetPacient(ID);
             model.Doctor = DoctorServices.ClassObject.GetDoctor(model.Pacient.IDMedic);
             model.Consultations = ConsultationServices.ClassObject.GetConsultationsByPacientID(ID);
+            model.Recommendations = DoctorServices.ClassObject.GetRecommendationsByPacientID(ID);
+            model.ActivityJournals = DoctorServices.ClassObject.GetActivitiesByPacientID(ID);
             return View(model);
         }
         [HttpGet]
@@ -329,13 +331,62 @@ namespace MPSAM.Web.Controllers
             return PartialView(model);
         }
         [HttpGet]
-        public ActionResult CreateRecommandation(int ID)
+        public ActionResult CreateRecommendation(int ID)
         {
             NewRecommendation model = new NewRecommendation();
 
             model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+            model.Doctors = DoctorServices.ClassObject.GetAllTheDoctors();
 
             return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult CreateRecommendation(NewRecommendation model)
+        {
+
+            var newRecommendation = new Recommendation();
+            newRecommendation.IDPacient = model.IDPacient;
+            //newRecommendation.IDDoctor = model.IDDoctor;
+            newRecommendation.Data = model.Data;
+            newRecommendation.Text = model.Text;
+            DoctorServices.ClassObject.SaveRecommendation(newRecommendation);
+
+            return RedirectToAction("PacientsTable");
+        }
+        [HttpPost]
+        public ActionResult DeleteRecommendation(int ID, int IDPacient)
+        {
+            DoctorServices.ClassObject.DeleteRecommendation(ID);
+            //return RedirectToAction("InfoPacient", new { id = IDPacient });
+            string redirectUrl = Url.Action("InfoPacient", new { id = IDPacient });
+            return Json( new { redirectUrl });
+        }
+        [HttpGet]
+        public ActionResult CreateActivity(int ID)
+        {
+            NewActivity model = new NewActivity();
+            model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult CreateActivity(NewActivity model)
+        {
+
+            var newActivity = new ActivityJournal();
+            newActivity.IDPacient = model.IDPacient;
+            newActivity.Data = model.Data;
+            newActivity.Activitate = model.Activitate;
+            DoctorServices.ClassObject.SaveActivity(newActivity);
+
+            return RedirectToAction("PacientsTable");
+        }
+        [HttpPost]
+        public ActionResult DeleteActivity(int ID, int IDPacient)
+        {
+            DoctorServices.ClassObject.DeleteActivity(ID);
+
+            string redirectUrl = Url.Action("InfoPacient", new { id = IDPacient });
+            return Json(new { redirectUrl });
         }
     }
 }

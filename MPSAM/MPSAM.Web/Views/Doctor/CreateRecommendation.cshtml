@@ -1,0 +1,106 @@
+﻿@model MPSAM.Web.ViewModels.NewRecommendation
+
+@{
+    ViewBag.Title = "Create";
+}
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<hr />
+<br />
+
+<br />
+<br />
+<br />
+<div class="container">
+    <center><h2>ADĂUGARE RECOMANDARE</h2></center>
+    <br />
+    <br />
+    <form id="createRecommendation">
+        <input type="hidden" name="IDPacient" value="@Model.Pacient.ID" />
+        <br /> 
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Data<span class="text-danger">*</span></label>
+                <input type="date" name="Data" class="form-control form-control-lg" id="Data" />
+                <label id="lblErrorData" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Recomandare<span class="text-danger">*</span></label>
+                <textarea name="Text" class="form-control form-control-lg"></textarea>
+                <label id="lblErrorText" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <button id="saveBtn" type="button" class="Btn">Salvare</button>
+            <button id="cancelBtn" type="button" class="Btn">Anulare</button>
+        </div>
+
+    </form>
+</div>
+<br />
+<br />
+<script>
+
+    $("#saveBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        var reNumber = /^[0-9]*$/;
+        var valueDate = document.getElementById('Data').value;
+        if ($("#Text").val() == "") {
+            sweetAlert("Câmpul recomandare nu este valid", "", "error");
+            document.getElementById('lblErrorText').innerHTML = 'Câmpul nu este valid';
+        } else if (!Date.parse(valueDate)) {
+            sweetAlert("Câmpul data nu este valid", "", "error");
+            document.getElementById('lblErrorData').innerHTML = 'Câmpul nu este valid';
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Doctor/CreateRecommendation',
+                data: $("#createRecommendation").serialize()
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusActionTC();
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Failed");
+                });
+        }
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusActionTC();
+    });
+    function focusActionTC() {
+        $('html, body').animate({
+            scrollTop: $("#tableContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
+
+
+
+
+

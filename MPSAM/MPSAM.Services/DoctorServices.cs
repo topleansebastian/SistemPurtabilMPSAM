@@ -67,6 +67,36 @@ namespace MPSAM.Services
                 }
             }
         }
+        //save in database, ActivityJournals tabel
+        public void SaveActivity(ActivityJournal activity)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    //context.Entry(recommendation.Pacient).State = System.Data.Entity.EntityState.Unchanged;
+                    context.ActivityJournals.Add(activity);
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
+        //save in database, Recommendations tabel
+        public void SaveRecommendation(Recommendation recommendation)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    //context.Entry(recommendation.Pacient).State = System.Data.Entity.EntityState.Unchanged;
+                    context.Recommendations.Add(recommendation);
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
         //save in database, new doctor
         public void SaveDoctor(Doctor doctor)
         {
@@ -103,6 +133,41 @@ namespace MPSAM.Services
 
                 var doctor = context.Doctors.Find(ID);
                 context.Doctors.Remove(doctor);
+                context.SaveChanges();
+            }
+        }
+        public List<Recommendation> GetRecommendationsByPacientID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Recommendations.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
+            }
+        }
+
+        public List<ActivityJournal> GetActivitiesByPacientID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.ActivityJournals.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
+            }
+        }
+        public void DeleteRecommendation(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var recomm = context.Recommendations.Find(ID);
+                context.Recommendations.Remove(recomm);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteActivity(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var activity = context.ActivityJournals.Find(ID);
+                context.ActivityJournals.Remove(activity);
                 context.SaveChanges();
             }
         }
