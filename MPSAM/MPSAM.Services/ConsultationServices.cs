@@ -78,7 +78,7 @@ namespace MPSAM.Services
                 }
             }
         }
-        //save in database, Products tabel
+        //save in database, Consultations tabel
         public void SaveConsultation(Consultation consultation)
         {
             try

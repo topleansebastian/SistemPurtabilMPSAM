@@ -1,8 +1,10 @@
 ﻿@model MPSAM.Web.ViewModels.InfoPacientViewModel
 @{
-    ViewBag.Title = "Info";
-    Layout = "~/Views/Doctor/_Layout.cshtml";
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Pacient/_Layout.cshtml";
 }
+
+<center><h2>@Model.Pacient.Nume @Model.Pacient.Prenume</h2></center>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,9 +126,6 @@
                             <br />
                             <br />
                             <p class="card-text" style="font-size:15px;">@recomm.Text</p>
-                            <span class="text-danger">
-                                <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="@recomm.ID" data-toggle="tooltipDeleteBtn" title="Stergere recomandare" id="deleteBtn"></i>
-                            </span>
                         </div>
                     </div>
                 }
@@ -142,10 +141,6 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" style="font-size:15px;">Data și ora activității: @activity.Data.ToString("dd.MM.yyyy HH:mm")</h5>
-                            <br />
-                            <span class="text-danger">
-                                <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="@activity.ID" data-toggle="tooltipDeleteActivityBtn" title="Ștergere activitate" id="deleteActivityBtn"></i>
-                            </span>
                         </div>
                     </div>
                 }
@@ -207,78 +202,7 @@
     </div>
 </body>
 </html>
-<script>
-    $("#deleteBtn").click(function () {
-        swal({
-            title: "Confirmare ștergere",
-            text: "În urma ștergerii, recomandarea va fi ștearsă",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Doctor/DeleteRecommendation',
-                        data: {
-                            ID: $(this).attr('data-id'),
-                            IDPacient: $(this).attr('data-idPacient'),
-                        },
-                        success: function (response) {
-                            window.location.replace(response.redirectUrl);
-                        }
-                    })
-                        .done(function (response) {
-                            //$("#tableContainer").html(response);
-                            window.location.replace(response.redirectUrl);
 
-                            swal("Recomandarea a fost ștersă", {
-                                icon: "success",
-                            });
-                        })
-                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert("Failed");
-                        });
-                }
-            });
-    });
-    $("#deleteActivityBtn").click(function () {
-        swal({
-            title: "Confirmare ștergere",
-            text: "În urma ștergerii, activitatea va fi ștearsă",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Doctor/DeleteActivity',
-                        data: {
-                            ID: $(this).attr('data-id'),
-                            IDPacient: $(this).attr('data-idPacient'),
-                        },
-                        success: function (response) {
-                            window.location.replace(response.redirectUrl);
-                        }
-                    })
-                        .done(function (response) {
-                            //$("#tableContainer").html(response);
-                            window.location.replace(response.redirectUrl);
-
-                            swal("Activitatea a fost ștersă", {
-                                icon: "success",
-                            });
-                        })
-                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert("Failed");
-                        });
-                }
-            });
-    });
-</script>
 
 
 

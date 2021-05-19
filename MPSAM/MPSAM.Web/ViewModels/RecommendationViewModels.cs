@@ -8,8 +8,11 @@ namespace MPSAM.Web.ViewModels
 {
     public class NewRecommendation
     {
-        public Pacient Pacient { get; set; }
+        public int IDPacient { get; set; }
+        public int IDDoctor { get; set; }
         public DateTime Data { get; set; }
         public string Text { get; set; }
+        public Pacient Pacient { get; set; }
+        public List<Doctor> Doctors { get; set; }
     }
 }

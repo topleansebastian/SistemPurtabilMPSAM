@@ -1,4 +1,5 @@
 ﻿using MPSAM.Database;
+using MPSAM.Services;
 using MPSAM.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,16 +27,24 @@ namespace MPSAM.Web.Controllers
                 if (isValid)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    return RedirectToAction("Dashboard", "Pacient");
+                    int IDPacient = context.Pacients.Where(p => p.Email == model.Email && p.Parola == model.Password).Select(p => p.ID).First();
+                    return RedirectToAction("Dashboard", "Pacient", new { id = IDPacient });
                 }
                 ModelState.AddModelError("", "Emailul sau parola sunt invalide");
 
                 return View();
             }
         }
-        public ActionResult Dashboard()
+        [HttpGet]
+        public ActionResult Dashboard(int ID)
         {
-            return View();
+            InfoPacientViewModel model = new InfoPacientViewModel();
+            model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+            model.Doctor = DoctorServices.ClassObject.GetDoctor(model.Pacient.IDMedic);
+            model.Consultations = ConsultationServices.ClassObject.GetConsultationsByPacientID(ID);
+            model.Recommendations = DoctorServices.ClassObject.GetRecommendationsByPacientID(ID);
+            model.ActivityJournals = DoctorServices.ClassObject.GetActivitiesByPacientID(ID);
+            return View(model);
         }
     }
 }
