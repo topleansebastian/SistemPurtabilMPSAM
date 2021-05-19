@@ -83,6 +83,15 @@ namespace MPSAM.Web.Controllers
         [HttpPost]
         public ActionResult CreatePacient(NewPacientViewModel model)
         {
+            using (var context = new DBContext())
+            {
+                bool PacientExist = context.Pacients.Any(x => x.CNP == model.CNP);
+                if (PacientExist)
+                {
+                    ViewBag.AlreadyExist = "Pacientul există deja în baza de date. Adăugarea nu s-a realizat.";
+                    return RedirectToAction("PacientsTable");
+                }
+            }
 
             var newPacient = new Pacient();
             newPacient.IDMedic = model.IDMedic; ;
