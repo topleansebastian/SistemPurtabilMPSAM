@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MPSAM.Mobile4.Droid.Models
 {
@@ -27,10 +28,15 @@ namespace MPSAM.Mobile4.Droid.Models
 
         private BluetoothManager() {
 
-            timer.Interval = 10000;
+            timer.Interval = 1000;
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Start();
+
+
+            var devices = BluetoothAdapter.DefaultAdapter.BondedDevices.ToArray();
+            
+
         
         }
 
@@ -39,11 +45,82 @@ namespace MPSAM.Mobile4.Droid.Models
 
 
      
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private async void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            var data = new System.Random().Next(0,100).ToString();
-            if (!String.IsNullOrEmpty(data))
-                DataString = data;
+            //var data = new System.Random().Next(0, 100).ToString();
+            //if (!String.IsNullOrEmpty(data))
+            //    DataString = data;
+
+            bool deviceFound = false;
+            BluetoothDevice device = null;
+
+            try
+            {
+                if (BluetoothAdapter.DefaultAdapter != null && BluetoothAdapter.DefaultAdapter.IsEnabled)
+                {
+                    foreach (var pairedDevice in BluetoothAdapter.DefaultAdapter.BondedDevices)
+                    {
+                        if (pairedDevice.Name == "RN42-DA6C")
+                        {
+                            DataString = "S-a gasit";
+                            deviceFound = true;
+                            timer.Stop();
+                            device = pairedDevice;
+
+                            var _socket = device.CreateRfcommSocketToServiceRecord(UUID.FromString("00001101-0000-1000-8000-00805f9b34fb"));
+                            await _socket.ConnectAsync();
+
+                            Thread t2 = new Thread(async () =>
+                            {
+
+                                byte[] buffer = null;
+                                while (true)
+                                {
+                                    await _socket.InputStream.ReadAsync(buffer, 0, buffer.Length);
+
+                                    DataString = Encoding.ASCII.GetString(buffer);
+                                    buffer = null;
+                                }
+
+                            });
+
+                            try
+                            {
+                                
+
+                                t2.Start();
+                            }
+                            catch(Exception exp)
+                            {
+                                t2.Abort();
+                                DataString = "Thread abort";
+                                timer.Start();
+                            }
+                            
+                        }
+                        
+                    }
+                    Thread.Sleep(1000);
+                    DataString = "Foreach terminat";
+                }
+                else
+                {
+                    DataString = "Eroare la if";
+                }
+                if (!deviceFound)
+                {
+                    DataString = "Nu s-a gasit dispozitiv";
+                }
+            }
+            catch (Exception exp)
+            {
+                DataString = exp.ToString();
+                timer.Start();
+            }
+  
+
+
+
 
         }
 

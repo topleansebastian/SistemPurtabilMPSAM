@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BluetoothManager.cs" />
+    <Compile Include="Models\BluetoothManager2.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CurrentAndroidService.cs" />

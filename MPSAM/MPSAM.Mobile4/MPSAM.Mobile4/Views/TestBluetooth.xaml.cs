@@ -34,7 +34,7 @@ namespace MPSAM.Mobile4.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                MainLayout.Children.Add(new Label() { Text = sender as String });
+                MainLayout.Children.Add(new Label() { Text = sender as String, TextColor=Color.Red });
             }
             );
     
