@@ -1,0 +1,243 @@
+﻿@model MPSAM.Web.ViewModels.DoctorSearchViewModel
+@{
+                /**/
+
+                /**/
+
+                ViewBag.Title = "DoctorsTable";
+}
+@Scripts.Render("~/bundles/jquery")
+<br />
+<center><h2>MEDICI</h2></center>
+<div>
+    <br />
+    <br />
+    <form method="post">
+        <label style=" font-family: 'Montserrat', sans-serif;font-size: 19px;color: #222222;font-weight: bold;">Căutare medic</label>
+        <div class="form-row">
+            <div class="col">
+                <input id="searchTxt" name="Search" class="form-control form-control-lg" value="@Model.WordToBeSearched" placeholder="Introduceți nume sau cod parafa..." />
+            </div>
+            <div class="col">
+                <button type="button" id="searchBtn" class="Btn" data-toggle="tooltipSearch" title="Cautare">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+                <button type="button" id="resetBtn" style="position:absolute;" class="Btn" data-toggle="tooltipReset" title="Resetare filtre">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </form>
+    <br />
+    <button type="button" id="newBtn" data-toggle="tooltip" title="Adauga un nou medic" class="Btn">
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+    </button>
+</div>
+<hr />
+<br />
+<div class="filter-shop clearfix">
+    <p class="showing-product float-left" style="font-size:1.5rem">
+        Număr de medici: @Model.Pagination.TotalItems
+    </p>
+</div>
+<div>
+    <table id="DoctorsTable" class="table table-hover table-bordered">
+        <thead>
+            <tr style=" font-family: 'Montserrat', sans-serif;font-size: 15px;color: #222222;font-weight: bold;text-align: center;">
+                <td>NUME</td>
+                <td>COD PARAFA</td>
+                <td>EMAIL</td>
+                <td>ACȚIUNI</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var medic in Model.Doctors)
+            {
+                <tr style="font-size:1.5rem">
+                    <td style="text-transform: uppercase;">@medic.Nume @medic.Prenume</td>
+                    <td style="text-transform: uppercase;">@medic.CodParafa</td>
+                    <td>@medic.Email</td>
+                    <td style="text-align: center;">
+                        <button class="infoBtn Btn" @*data-id="@pacient.ID"*@ data-toggle="tooltipInfoBtn" title="Informatii medic" onclick="location.href='@Url.Action("InfoDoctor", "Administrator", new { ID = medic.ID })'">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        </button>
+                        <button class="editBtn Btn" data-id="@medic.ID" data-toggle="tooltipEditBtn" title="Editare medic">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <button class="deleteBtn Btn" data-id="@medic.ID" data-toggle="tooltipDeleteBtn" title="Stergere medic">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        @if (Model.Pagination != null)
+        {
+            if (Model.Pagination.CurrentPage > 1)
+            {
+                <button class="pageBtn Btn" data-pageNumber="1"><<</button>
+                <button class="pageBtn Btn" data-pageNumber="@(Model.Pagination.CurrentPage - 1)"><</button>
+            }
+            for (var page = Model.Pagination.StartPage; page <= Model.Pagination.EndPage; page++)
+            {
+                string BtnActive = Model.Pagination.CurrentPage == page ? "active bg-secondary" : string.Empty;
+                <button class="@BtnActive pageBtn Btn" data-pageNumber="@page">@page</button>
+            }
+            if (Model.Pagination.CurrentPage < Model.Pagination.TotalPages)
+            {
+                <button class="pageBtn Btn" data-pageNumber="@(Model.Pagination.CurrentPage + 1)">></button>
+                <button class="pageBtn Btn" data-pageNumber="@Model.Pagination.EndPage">>></button>
+            }
+        }
+
+    </div>
+</div>
+<br />
+<br />
+
+<script>
+    $("#searchBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        $.ajax({
+
+            url: '/Administrator/DoctorsTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+
+    $("#searchTxt").keypress(function (e) {
+        if (e.which == 13) return false;
+    });
+
+    $("#resetBtn").click(function () {
+        var searchValue = '';
+        $.ajax({
+
+            url: '/Administrator/DoctorsTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+    $("#newBtn").click(function () {
+        $.ajax({
+
+            url: '/Administrator/CreateDoctor',
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+
+    $(".editBtn").click(function () {
+        $.ajax({
+
+            url: '/Administrator/EditDoctor',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+    $(".deleteBtn").click(function () {
+        swal({
+            title: "Confirmare ștergere",
+            text: "În urma ștergerii, toate datele medicului vor fi șterse",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Administrator/DeleteDoctor',
+                        data: {
+                            ID: $(this).attr('data-id')
+                        }
+                    })
+                        .done(function (response) {
+                            $("#tableContainer").html(response);
+
+                            swal("Medicul a fost șters", {
+                                icon: "success",
+                            });
+                        })
+                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Failed");
+                        });
+                }
+            });
+    });
+    //used for pagination
+    $(".pageBtn").click(function () {
+        $.ajax({
+
+            url: '/Administrator/DoctorsTable',
+            data: {
+                pageNumber: $(this).attr("data-pageNumber")
+            }
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
+    //TOOLTIP
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltipInfoBtn"]').tooltip();
+        $('[data-toggle="tooltipEditBtn"]').tooltip();
+        $('[data-toggle="tooltipDeleteBtn"]').tooltip();
+        $('[data-toggle="tooltipSearch"]').tooltip();
+        $('[data-toggle="tooltipReset"]').tooltip();
+    });
+
+    function focusAction() {
+        $('html, body').animate({
+            scrollTop: $("#actionContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
+
+
+
+
+
+
+
+
+

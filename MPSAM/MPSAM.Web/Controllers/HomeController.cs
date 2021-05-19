@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MPSAM.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,29 @@ namespace MPSAM.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult FirstPage()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Validate(string email, string password)
         {
-            ViewBag.Message = "Your contact page.";
+            DBContext context = new DBContext();
+            var medic = context.Doctors.FirstOrDefault(m=> m.Email == email && m.Parola == password);
 
-            return View();
+            if (medic == null)
+            {
+                return Json(new { status = false, message = "Username sau parola invalida!" });
+            }
+            else
+            {
+                return Json(new { status = true, message = "Autentificare realizata cu succes!" });
+            }
         }
     }
 }

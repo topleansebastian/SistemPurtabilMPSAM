@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "FirstPage";
+}
+
+<head>
+    <link href="~/Content/index-css.css" rel="stylesheet" />
+</head>
+<nav>
+    <h1 style="text-align:center;font-size:20px;">Alege tipul de utilizator</h1>
+    <ul>
+        <li><a href="@Url.Action("Login", "Administrator")" style="text-decoration: none; color: black;">Administrator</a></li>
+        <li><a href="@Url.Action("Login", "Doctor")" style="text-decoration: none; color: black;">Medic</a></li>
+        <li><a href="@Url.Action("Login", "Pacient")" style="text-decoration: none; color: black;">Pacient</a></li>
+    </ul>
+</nav>
+

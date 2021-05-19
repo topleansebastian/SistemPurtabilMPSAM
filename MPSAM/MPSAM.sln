@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSAM.Web", "MPSAM.Web\MPSAM.Web.csproj", "{CD77BB1E-6E7A-4D54-9A5D-6A61AC9364BB}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSAM.Mobile4.iOS", "MPSAM.Mobile4\MPSAM.Mobile4.iOS\MPSAM.Mobile4.iOS.csproj", "{E789D5B5-9E77-4186-8C34-27FC978A4EFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPSAM.Mobile4", "MPSAM.Mobile4\MPSAM.Mobile4\MPSAM.Mobile4.csproj", "{45CF4352-0752-4287-8852-9077FA25B788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSAM.Entities", "MPSAM.Entities\MPSAM.Entities.csproj", "{F79413B2-5F5E-40DF-986E-47426632F9AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSAM.Database", "MPSAM.Database\MPSAM.Database.csproj", "{B3A2792A-0749-487A-853F-51819B027177}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSAM.Services", "MPSAM.Services\MPSAM.Services.csproj", "{1597C595-4883-4008-8C77-46C616188F7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

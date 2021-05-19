@@ -1,0 +1,285 @@
+﻿@model MPSAM.Web.ViewModels.InfoPacientViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Doctor/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .button {
+            background-color: #00BCD4;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <button class="button">Printare fisa pacient</button>
+        <br />
+        <br />
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Date pacient</a></li>
+            <li><a data-toggle="tab" href="#tab1">Istoric medical</a></li>
+            <li><a data-toggle="tab" href="#menu2">Consultații</a></li>
+            <li><a data-toggle="tab" href="#menu3">Recomandări</a></li>
+            <li><a data-toggle="tab" href="#menu4">Activități</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <br />
+                <br />
+                <dl class="dl-horizontal">
+                    <dt>Nume</dt>
+                    <dd>@Model.Pacient.Nume @Model.Pacient.Prenume</dd>
+                    <dt>CNP</dt>
+                    <dd>@Model.Pacient.CNP</dd>
+                    <dt>Sex</dt>
+                    <dd>@Model.Pacient.Sex</dd>
+                    <dt>Data nasterii</dt>
+                    <dd>@Model.Pacient.DataNasterii</dd>
+                    <dt>Varsta</dt>
+                    <dd>@Model.Pacient.Varsta</dd>
+                    <dt>Adresa</dt>
+                    <dd>@Model.Pacient.Adresa, @Model.Pacient.Localitate, @Model.Pacient.Judet</dd>
+                    <dt>Email</dt>
+                    <dd>@Model.Pacient.Email</dd>
+                    <dt>Telefon</dt>
+                    <dd>@Model.Pacient.Telefon</dd>
+                    <dt>Ocupatie</dt>
+                    <dd>@Model.Pacient.Ocupatie</dd>
+                    <dt>Loc de munca</dt>
+                    <dd>@Model.Pacient.LocDeMunca</dd>
+                    <dd></dd>
+                    <dt></dt>
+                </dl>
+            </div>
+            <div id="tab1" class="tab-pane fade">
+                <br />
+                <br />
+                <dl class="dl-horizontal">
+                    <dt>Medic responsabil</dt>
+                    <dd>@Model.Doctor.Nume @Model.Doctor.Prenume</dd>
+                    <dt>Grup sanguin</dt>
+                    <dd>@Model.Pacient.GrupSanguin</dd>
+                    <dt>Rh</dt>
+                    <dd>@Model.Pacient.RH</dd>
+                    <dt>Alergii</dt>
+                    <dd>@Model.Pacient.Alergii</dd>
+                    <dt>Inaltime</dt>
+                    <dd>@Model.Pacient.Inaltime</dd>
+                    <dt>Greutate</dt>
+                    <dd>@Model.Pacient.Greutate</dd>
+                    <dt>Tegumente mucoase</dt>
+                    <dd>@Model.Pacient.TegumenteMucoase</dd>
+                    <dt>Tesut subcutanat</dt>
+                    <dd>@Model.Pacient.TesutSubcutanat</dd>
+                    <dt>Ganglioni</dt>
+                    <dd>@Model.Pacient.Ganglioni</dd>
+                    <dt>Ant. fiziologice</dt>
+                    <dd>@Model.Pacient.AntecedenteFiziologice</dd>
+                    <dt>Ant. patologice</dt>
+                    <dd>@Model.Pacient.AntecedentePatologice</dd>
+                    <dt>Conditii mediu</dt>
+                    <dd>@Model.Pacient.ConditiiMediu</dd>
+                    <dt>Internari</dt>
+                    <dd>@Model.Pacient.Internari</dd>
+                    <dt>Motive internari</dt>
+                    <dd>@Model.Pacient.MotiveInternari</dd>
+                    <dt>Zgomot</dt>
+                    <dd>@Model.Pacient.Zgomot</dd>
+                    <dt>Suflu</dt>
+                    <dd>@Model.Pacient.Suflu</dd>
+                    <dt>Frecventa</dt>
+                    <dd>@Model.Pacient.Frecventa</dd>
+                    <dt>Aritmii</dt>
+                    <dd>@Model.Pacient.Aritmii</dd>
+                    <dt>Parola</dt>
+                    <dd>@Model.Pacient.Parola</dd>
+                </dl>
+
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                <br />
+                @foreach (var recomm in Model.Recommendations)
+                {
+                    <div class="card">
+                        <div class="card-header" style="font-size:15px;">
+                            Recomandare #@recomm.ID
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size:15px;">Data recomandarii: @recomm.Data.ToString("dddd, dd MMMM yyyy")</h5>
+                            <br />
+                            <br />
+                            <p class="card-text" style="font-size:15px;">@recomm.Text</p>
+                            <span class="text-danger">
+                                <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="@recomm.ID" data-toggle="tooltipDeleteBtn" title="Stergere recomandare" id="deleteBtn"></i>
+                            </span>
+                        </div>
+                    </div>
+                }
+                <br />
+            </div>
+            <div id="menu4" class="tab-pane fade">
+                <br />
+                @foreach (var activity in Model.ActivityJournals)
+                {
+                    <div class="card">
+                        <div class="card-header" style="font-size:15px;">
+                            Activitate: @activity.Activitate
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size:15px;">Data și ora activității: @activity.Data.ToString("dd.MM.yyyy HH:mm")</h5>
+                            <br />
+                            <span class="text-danger">
+                                <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="@activity.ID" data-toggle="tooltipDeleteActivityBtn" title="Ștergere activitate" id="deleteActivityBtn"></i>
+                            </span>
+                        </div>
+                    </div>
+                }
+                <br />
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <br />
+                <div class="bs-example">
+                    <div class="panel-group" id="accordionY">
+                        @{int ij = 0;}
+                        @foreach (var consultation in Model.Consultations)
+                        {
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordionY" href="#collapse_@ij">Numar consultatie: @consultation.ID, Data consultatie: @consultation.Data.ToString("dddd, dd MMMM yyyy")</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_@ij" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="font-size:15px;">Informatii suplimentare</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Medic</th>
+                                                    <td>@Model.Doctor.Nume @Model.Doctor.Prenume</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Tip consultatie</th>
+                                                    <td>@consultation.Simptome</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Diagnostic</th>
+                                                    <td>@consultation.Diagnostic</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Tratament</th>
+                                                    <td>@consultation.Tratament</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            ij++;
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $("#deleteBtn").click(function () {
+        swal({
+            title: "Confirmare ștergere",
+            text: "În urma ștergerii, recomandarea va fi ștearsă",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Doctor/DeleteRecommendation',
+                        data: {
+                            ID: $(this).attr('data-id'),
+                            IDPacient: $(this).attr('data-idPacient'),
+                        },
+                        success: function (response) {
+                            window.location.replace(response.redirectUrl);
+                        }
+                    })
+                        .done(function (response) {
+                            //$("#tableContainer").html(response);
+                            window.location.replace(response.redirectUrl);
+
+                            swal("Recomandarea a fost ștersă", {
+                                icon: "success",
+                            });
+                        })
+                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Failed");
+                        });
+                }
+            });
+    });
+    $("#deleteActivityBtn").click(function () {
+        swal({
+            title: "Confirmare ștergere",
+            text: "În urma ștergerii, activitatea va fi ștearsă",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Doctor/DeleteActivity',
+                        data: {
+                            ID: $(this).attr('data-id'),
+                            IDPacient: $(this).attr('data-idPacient'),
+                        },
+                        success: function (response) {
+                            window.location.replace(response.redirectUrl);
+                        }
+                    })
+                        .done(function (response) {
+                            //$("#tableContainer").html(response);
+                            window.location.replace(response.redirectUrl);
+
+                            swal("Activitatea a fost ștersă", {
+                                icon: "success",
+                            });
+                        })
+                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Failed");
+                        });
+                }
+            });
+    });
+</script>
+
+
+
+

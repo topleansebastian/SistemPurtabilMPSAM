@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -120,23 +127,109 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\PacientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ActivityViewModels.cs" />
+    <Compile Include="ViewModels\AdministratorViewModels.cs" />
+    <Compile Include="ViewModels\ConsultationViewModels.cs" />
+    <Compile Include="ViewModels\DoctorViewModels.cs" />
+    <Compile Include="ViewModels\PacientViewModels.cs" />
+    <Compile Include="ViewModels\RecommendationViewModels.cs" />
+    <Compile Include="ViewModels\SharedViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen_v1.8.7\chosen-sprite.png" />
+    <Content Include="Content\chosen_v1.8.7\chosen.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen.jquery.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.jquery.min.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.min.css" />
+    <Content Include="Content\chosen_v1.8.7\chosen.proto.js" />
+    <Content Include="Content\chosen_v1.8.7\chosen.proto.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\chosen.png" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\init.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\init.proto.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\jquery-1.12.4.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\jquery-3.2.1.min.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\oss-credit.png" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prism.css" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prism.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\prototype-1.7.0.0.js" />
+    <Content Include="Content\chosen_v1.8.7\docsupport\style.css" />
+    <Content Include="Content\chosen_v1.8.7\index.html" />
+    <Content Include="Content\chosen_v1.8.7\index.proto.html" />
+    <Content Include="Content\chosen_v1.8.7\options.html" />
+    <Content Include="Content\css\Login.css" />
+    <Content Include="Content\css\material-dashboard-rtl.css" />
+    <Content Include="Content\css\material-dashboard.css" />
+    <Content Include="Content\css\material-dashboard.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\index-css.css" />
+    <Content Include="Content\js\bootstrap-material-design.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\material-dashboard.js" />
+    <Content Include="Content\js\material-dashboard.min.js" />
+    <Content Include="Content\js\popper.min.js" />
+    <Content Include="Content\LoginForm\loginPhoto.jpeg" />
+    <Content Include="Content\LoginForm\main.css" />
+    <Content Include="Content\LoginForm\util.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\css\material-dashboard.css.map" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\js\material-dashboard.js.map" />
+    <Content Include="Content\chosen_v1.8.7\composer.json" />
+    <Content Include="Content\chosen_v1.8.7\LICENSE.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -148,8 +241,23 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Home\css.css" />
-    <Content Include="Web.config" />
+    <Content Include="Views\Doctor\Dashboard.cshtml" />
+    <Content Include="Views\Doctor\DisplayPacients.cshtml" />
+    <Content Include="Views\Doctor\PacientsTable.cshtml" />
+    <Content Include="Views\Doctor\CreatePacient.cshtml" />
+    <Content Include="Views\Doctor\EditPacient.cshtml" />
+    <Content Include="Views\Doctor\InfoPacient.cshtml" />
+    <Content Include="Views\Doctor\DisplayConsultations.cshtml" />
+    <Content Include="Views\Doctor\ConsultationsTable.cshtml" />
+    <Content Include="Views\Doctor\CreateConsultation.cshtml" />
+    <Content Include="Views\Doctor\EditConsultation.cshtml" />
+    <Content Include="Views\Doctor\InfoConsultation.cshtml" />
+    <Content Include="Views\Doctor\CreateRecommendation.cshtml" />
+    <Content Include="Views\Doctor\CreateActivity.cshtml" />
+    <None Include="Views\Doctor\_Layout.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -160,9 +268,20 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\FirstPage.cshtml" />
+    <Content Include="Views\Administrator\Login.cshtml" />
+    <Content Include="Views\Administrator\Dashboard.cshtml" />
+    <Content Include="Views\Doctor\Login.cshtml" />
+    <Content Include="Views\Pacient\Login.cshtml" />
+    <Content Include="Views\Administrator\_Layout.cshtml" />
+    <Content Include="Views\Administrator\DisplayDoctors.cshtml" />
+    <Content Include="Views\Administrator\DoctorsTable.cshtml" />
+    <Content Include="Views\Administrator\CreateDoctor.cshtml" />
+    <Content Include="Views\Administrator\EditDoctor.cshtml" />
+    <Content Include="Views\Administrator\InfoDoctor.cshtml" />
+    <Content Include="Views\Pacient\_Layout.cshtml" />
+    <Content Include="Views\Pacient\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -180,6 +299,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MPSAM.Database\MPSAM.Database.csproj">
+      <Project>{B3A2792A-0749-487A-853F-51819B027177}</Project>
+      <Name>MPSAM.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPSAM.Entities\MPSAM.Entities.csproj">
+      <Project>{F79413B2-5F5E-40DF-986E-47426632F9AF}</Project>
+      <Name>MPSAM.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPSAM.Services\MPSAM.Services.csproj">
+      <Project>{1597C595-4883-4008-8C77-46C616188F7A}</Project>
+      <Name>MPSAM.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -214,7 +347,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

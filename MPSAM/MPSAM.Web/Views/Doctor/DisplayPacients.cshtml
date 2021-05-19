@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "DisplayPacients";
+    Layout = "~/Views/Doctor/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery")
+<div class="container">
+    <div id="tableContainer">
+        @{
+            Html.RenderAction("PacientsTable");
+        }
+    </div>
+    <div id="actionContainer">
+        <hr />
+    </div>
+</div>
+
