@@ -7,13 +7,13 @@ namespace MPSAM.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddConsult : IMigrationMetadata
+    public sealed partial class NewDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddConsult));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105111927514_AddConsult"; }
+            get { return "202105241750443_NewDB"; }
         }
         
         string IMigrationMetadata.Source
