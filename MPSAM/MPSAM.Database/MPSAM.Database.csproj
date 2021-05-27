@@ -56,6 +56,10 @@
     <Compile Include="Migrations\202105241750443_NewDB.designer.cs">
       <DependentUpon>202105241750443_NewDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105271016527_Descr.cs" />
+    <Compile Include="Migrations\202105271016527_Descr.designer.cs">
+      <DependentUpon>202105271016527_Descr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105241750443_NewDB.resx">
       <DependentUpon>202105241750443_NewDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271016527_Descr.resx">
+      <DependentUpon>202105271016527_Descr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
