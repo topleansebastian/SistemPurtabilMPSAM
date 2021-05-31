@@ -10,10 +10,10 @@ namespace MPSAM.Entities
     {
         public int ID { get; set; }
         public int IDPacient { get; set; }
-        public decimal Pr { get; set; }
-        public decimal Qt { get; set; }
-        public decimal Temperatura { get; set; }
+        public int Temperatura { get; set; }
+        public int Umiditate { get; set; }
         public int Puls { get; set; }
+        public string Ecg { get; set; }
         public DateTime Data { get; set; }
     }
 }

@@ -255,6 +255,22 @@
                 alert("Failed");
             });
     });
+    $(".alarmBtn").click(function () {
+        $.ajax({
+
+            url: '/Doctor/CreateAlarm',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Failed");
+            });
+    });
     //used for pagination
     $(".pageBtn").click(function () {
         $.ajax({

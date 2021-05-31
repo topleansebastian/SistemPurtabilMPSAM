@@ -254,6 +254,7 @@
     <Content Include="Views\Doctor\InfoConsultation.cshtml" />
     <Content Include="Views\Doctor\CreateRecommendation.cshtml" />
     <Content Include="Views\Doctor\CreateActivity.cshtml" />
+    <Content Include="Views\Doctor\CreateAlarm.cshtml" />
     <None Include="Views\Doctor\_Layout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

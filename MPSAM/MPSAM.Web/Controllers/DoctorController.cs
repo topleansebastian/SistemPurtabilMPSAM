@@ -231,6 +231,7 @@ namespace MPSAM.Web.Controllers
             model.Consultations = ConsultationServices.ClassObject.GetConsultationsByPacientID(ID);
             model.Recommendations = DoctorServices.ClassObject.GetRecommendationsByPacientID(ID);
             model.ActivityJournals = DoctorServices.ClassObject.GetActivitiesByPacientID(ID);
+            model.Alarms = DoctorServices.ClassObject.GetAlarmsByPacientID(ID);
             return View(model);
         }
         [HttpGet]
@@ -393,6 +394,35 @@ namespace MPSAM.Web.Controllers
         public ActionResult DeleteActivity(int ID, int IDPacient)
         {
             DoctorServices.ClassObject.DeleteActivity(ID);
+
+            string redirectUrl = Url.Action("InfoPacient", new { id = IDPacient });
+            return Json(new { redirectUrl });
+        }
+        [HttpGet]
+        public ActionResult CreateAlarm(int ID)
+        {
+            NewAlarm model = new NewAlarm();
+            model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult CreateAlarm(NewAlarm model)
+        {
+
+            var newAlarm = new Alarm();
+            newAlarm.IDPacient = model.IDPacient;
+            newAlarm.ValoareVizata = model.ValoareVizata;
+            newAlarm.LimitaInferioara= model.LimitaInferioara;
+            newAlarm.LimitaSuperioara = model.LimitaSuperioara;
+            newAlarm.Mesaj = model.Mesaj;
+            DoctorServices.ClassObject.SaveAlarm(newAlarm);
+
+            return RedirectToAction("PacientsTable");
+        }
+        [HttpPost]
+        public ActionResult DeleteAlarm(int ID, int IDPacient)
+        {
+            DoctorServices.ClassObject.DeleteAlarm(ID);
 
             string redirectUrl = Url.Action("InfoPacient", new { id = IDPacient });
             return Json(new { redirectUrl });

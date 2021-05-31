@@ -82,6 +82,21 @@ namespace MPSAM.Services
             catch (DbEntityValidationException e)
             { }
         }
+        //save in database, Alarms tabel
+        public void SaveAlarm(Alarm alarm)
+        {
+            try
+            {
+                using (var context = new DBContext())
+                {
+                    //context.Entry(recommendation.Pacient).State = System.Data.Entity.EntityState.Unchanged;
+                    context.Alarms.Add(alarm);
+                    context.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException e)
+            { }
+        }
         //save in database, Recommendations tabel
         public void SaveRecommendation(Recommendation recommendation)
         {
@@ -151,6 +166,13 @@ namespace MPSAM.Services
                 return context.ActivityJournals.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
             }
         }
+        public List<Alarm> GetAlarmsByPacientID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Alarms.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
+            }
+        }
         public void DeleteRecommendation(int ID)
         {
             using (var context = new DBContext())
@@ -168,6 +190,16 @@ namespace MPSAM.Services
 
                 var activity = context.ActivityJournals.Find(ID);
                 context.ActivityJournals.Remove(activity);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteAlarm(int ID)
+        {
+            using (var context = new DBContext())
+            {
+
+                var alarm = context.Alarms.Find(ID);
+                context.Alarms.Remove(alarm);
                 context.SaveChanges();
             }
         }
