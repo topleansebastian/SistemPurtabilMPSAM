@@ -100,6 +100,7 @@ namespace MPSAM.Web.ViewModels
         public List<Recommendation> Recommendations { get; set; }
         public List<ActivityJournal> ActivityJournals { get; set; }
         public List<Alarm> Alarms { get; set; }
+        public List<Monitoring> Monitorings { get; set; }
     }
     public class SelectedPacientsAndDoctors
     {

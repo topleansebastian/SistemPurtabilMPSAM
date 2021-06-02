@@ -12,6 +12,8 @@ using System.Web.Security;
 using System.Data.Entity;
 using static MPSAM.Web.ViewModels.ConsultationViewModels;
 using static MPSAM.Web.ViewModels.ActivityViewModels;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MPSAM.Web.Controllers
 {
@@ -232,7 +234,19 @@ namespace MPSAM.Web.Controllers
             model.Recommendations = DoctorServices.ClassObject.GetRecommendationsByPacientID(ID);
             model.ActivityJournals = DoctorServices.ClassObject.GetActivitiesByPacientID(ID);
             model.Alarms = DoctorServices.ClassObject.GetAlarmsByPacientID(ID);
+            model.Monitorings = DoctorServices.ClassObject.GetMonitoringsByPacientID(ID);
+
             return View(model);
+        }
+        public JsonResult GetColumnChartJSON(int ID)
+        {
+            List<Monitoring> list = new List<Monitoring>();
+
+            using (var context = new DBContext())
+            {
+                list = context.Monitorings.Select(a => new Monitoring { Puls = a.Puls, Data = a.Data }).ToList();
+            }
+            return Json(new { JSONList = list }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult DisplayConsultations()

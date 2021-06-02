@@ -20,20 +20,25 @@
     <form id="createAlarm">
         <input type="hidden" name="IDPacient" value="@Model.Pacient.ID" />
         <br />
-        @*<div class="form-row">
+        <div class="form-row">
             <div class="col">
 
             </div>
             <div class="col">
                 <label>Valoare Vizata<span class="text-danger">*</span></label>
-                <textarea name="ValoareVizata" class="form-control form-control-lg"></textarea>
+                <select name="ValoareVizata" id="ValoareVizata" class="form-control form-control-lg">
+                    <option value="Puls">Puls</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Umiditate">Umiditate</option>
+                    <option value="ECG">ECG</option>
+                </select>       
                 <label id="lblErrorValoareVizata" class="alert-danger"></label>
             </div>
             <div class="col">
 
             </div>
-        </div>*@
-        @*<br />*@
+        </div>
+        <br />
         <div class="form-row">
             <div class="col">
 

@@ -173,6 +173,13 @@ namespace MPSAM.Services
                 return context.Alarms.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
             }
         }
+        public List<Monitoring> GetMonitoringsByPacientID(int ID)
+        {
+            using (var context = new DBContext())
+            {
+                return context.Monitorings.Where(p => p.IDPacient == ID).OrderByDescending(p => p.ID).ToList();
+            }
+        }
         public void DeleteRecommendation(int ID)
         {
             using (var context = new DBContext())
