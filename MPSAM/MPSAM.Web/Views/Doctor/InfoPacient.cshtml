@@ -178,46 +178,127 @@
             </div>
             <div id="menu6" class="tab-pane fade">
                 <br />
+                <div class="form-row">
+                    <div class="col">
+                        <div id="container" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetPulsData/@Model.Pacient.ID", function (result) {
 
-                <div id="container" style="width: 550px; height: 400px; margin: 0 auto">
+                            var list = [["Data", "Puls"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = { title: 'Istoricul pulsului' };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('container'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                            google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                    <div class="col">
+                        <div id="containerTemperatura" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetTemperaturaData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Temperatura"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoricul temperanturii ambientale',
+                                colors: ['yellow', 'green']
+                            };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('containerTemperatura'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                    google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+
+                        <div id="containerUmiditate" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetUmiditateData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Umiditate"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoric umiditate',
+                                colors: ['green', 'red']
+                            };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('containerUmiditate'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                    google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                </div>
+                <CENTER><h5 style="font-weight:bold;">Istoric ECG</h5></CENTER>
+                <div id="containerEcg" style="width: 1000px; height: 200px; margin: 0 auto">
                 </div>
                 <script language="JavaScript">
                     function drawChart() {
-                        // Define the chart to be drawn.
-                        var data = google.visualization.arrayToDataTable([
-                            ['Year', 'Asia'],
-                            ['2012', 900],
-                            ['2013', 1000],
-                            ['2014', 1170],
-                            ['2015', 1250],
-                            ['2016', 1530]
-                        ]);
+                        $.get("/Doctor/GetEcgData/@Model.Pacient.ID", function (result) {
 
-                        var options = { title: 'Population (in millions)' };
+                            var list = [["Data", "Ecg"]];
+                            result.xData.forEach((v, i) => {
+                                //value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([result.yData[i], result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoric ecg',
+                                colors: ['red', 'green'],
+                                chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
+                                height: 500,
+                                width: 1500
+                            };
 
-                        // Instantiate and draw the chart.
-                        var chart = new google.visualization.ColumnChart(document.getElementById('container'));
-                        chart.draw(data, options);
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.LineChart(document.getElementById('containerEcg'));
+                            chart.draw(data, options);
+                        })
+
                     }
                     google.charts.setOnLoadCallback(drawChart);
                 </script>
 
-
-                @*@foreach (var mon in Model.Monitorings)
-        {
-            <div class="card">
-                <div class="card-header" style="font-size:15px;">
-                    Alarma se va activa la depistarea unei valori între  și
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size:15px;">Mesaj:</h5>
-                    <br />
-                    <span class="text-danger">
-                        <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="" data-toggle="tooltipDeleteAlarmBtn" title="Ștergere alarma" id="deleteAlarmBtn"></i>
-                    </span>
-                </div>
-            </div>
-        }*@
                 <br />
             </div>
             <div id="menu2" class="tab-pane fade">

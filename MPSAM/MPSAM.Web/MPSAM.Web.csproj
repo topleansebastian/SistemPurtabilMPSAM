@@ -144,6 +144,8 @@
     <Compile Include="ViewModels\SharedViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\blueKardia.png" />
+    <Content Include="Content\blueKardiaDash.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -174,6 +176,8 @@
     <Content Include="Content\css\material-dashboard.css" />
     <Content Include="Content\css\material-dashboard.min.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="Content\favicon.png" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
