@@ -1,7 +1,9 @@
 ﻿using MPSAM.Database;
+using MPSAM.Entities;
 using MPSAM.Services;
 using MPSAM.Web.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -45,6 +47,185 @@ namespace MPSAM.Web.Controllers
             model.Recommendations = DoctorServices.ClassObject.GetRecommendationsByPacientID(ID);
             model.ActivityJournals = DoctorServices.ClassObject.GetActivitiesByPacientID(ID);
             return View(model);
+        }
+        [HttpGet]
+        [Route("/Pacient/GetEcgData/{ID}")]
+        public ActionResult GetEcgData(int ID)
+        {
+            try
+            {
+                var context = new DBContext();
+                ArrayList xValue = new ArrayList(); //values
+                ArrayList yValue = new ArrayList(); //date
+
+                var x = context.Monitorings.Where(m => m.IDPacient == ID).ToList();
+                var y = new Dictionary<string, List<Monitoring>>();
+                var t = "yyyy-MM-dd";
+                foreach (var m in x)
+                {
+                    if (y.ContainsKey(m.Data.ToString(t)))
+                    {
+                        y[m.Data.ToString(t)].Add(m);
+                    }
+                    else
+                    {
+                        y[m.Data.ToString(t)] = new List<Monitoring>() { m };
+                    }
+                }
+
+                foreach (var key in y.Keys)
+                {
+                    var val = y[key];
+                    foreach (var o in val)
+                    {
+                        var sEcg = o.Ecg.ToString();
+                        string[] strings = sEcg.Split(';');
+                        int[] ints = Array.ConvertAll(strings, int.Parse);
+                        if (ints != null && ints.Length != 0)
+                        {
+                            for (int i = 0; i <= ints.Length - 1; i++)
+                            {
+                                var sEcgValue = ints[i];
+                                xValue.Add(sEcgValue);
+                            }
+                        }
+                    }
+
+                    yValue.Add(DateTime.Parse(key));
+
+                }
+                return Json(new { xData = xValue, yData = yValue }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+        [HttpGet]
+        [Route("/Pacient/GetPulsData/{ID}")]
+        public ActionResult GetPulsData(int ID)
+        {
+            try
+            {
+                var context = new DBContext();
+                ArrayList xValue = new ArrayList();
+                ArrayList yValue = new ArrayList();
+
+                var x = context.Monitorings.Where(m => m.IDPacient == ID).ToList();
+                var y = new Dictionary<string, List<Monitoring>>();
+                var t = "yyyy-MM-dd";
+                foreach (var m in x)
+                {
+                    if (y.ContainsKey(m.Data.ToString(t)))
+                    {
+                        y[m.Data.ToString(t)].Add(m);
+                    }
+                    else
+                    {
+                        y[m.Data.ToString(t)] = new List<Monitoring>() { m };
+                    }
+                }
+
+                foreach (var key in y.Keys)
+                {
+                    var val = y[key];
+                    var z = (int)(val.Average(a => a.Puls));
+                    xValue.Add(z);
+                    yValue.Add(DateTime.Parse(key));
+
+                }
+                return Json(new { xData = xValue, yData = yValue }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+        [HttpGet]
+        [Route("/Pacient/GetTemperaturaData/{ID}")]
+        public ActionResult GetTemperaturaData(int ID)
+        {
+            try
+            {
+                var context = new DBContext();
+                ArrayList xValue = new ArrayList();
+                ArrayList yValue = new ArrayList();
+
+                var x = context.Monitorings.Where(m => m.IDPacient == ID).ToList();
+                var y = new Dictionary<string, List<Monitoring>>();
+                var t = "yyyy-MM-dd";
+                foreach (var m in x)
+                {
+                    if (y.ContainsKey(m.Data.ToString(t)))
+                    {
+                        y[m.Data.ToString(t)].Add(m);
+                    }
+                    else
+                    {
+                        y[m.Data.ToString(t)] = new List<Monitoring>() { m };
+                    }
+                }
+
+                foreach (var key in y.Keys)
+                {
+                    var val = y[key];
+                    var z = (int)(val.Average(a => a.Temperatura));
+                    xValue.Add(z);
+                    yValue.Add(DateTime.Parse(key));
+
+                }
+                return Json(new { xData = xValue, yData = yValue }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+
+        }
+        [HttpGet]
+        [Route("/Pacient/GetUmiditateData/{ID}")]
+        public ActionResult GetUmiditateData(int ID)
+        {
+            try
+            {
+                var context = new DBContext();
+                ArrayList xValue = new ArrayList();
+                ArrayList yValue = new ArrayList();
+
+                var x = context.Monitorings.Where(m => m.IDPacient == ID).ToList();
+                var y = new Dictionary<string, List<Monitoring>>();
+                var t = "yyyy-MM-dd";
+                foreach (var m in x)
+                {
+                    if (y.ContainsKey(m.Data.ToString(t)))
+                    {
+                        y[m.Data.ToString(t)].Add(m);
+                    }
+                    else
+                    {
+                        y[m.Data.ToString(t)] = new List<Monitoring>() { m };
+                    }
+                }
+
+                foreach (var key in y.Keys)
+                {
+                    var val = y[key];
+                    var z = (int)(val.Average(a => a.Umiditate));
+                    xValue.Add(z);
+                    yValue.Add(DateTime.Parse(key));
+
+                }
+                return Json(new { xData = xValue, yData = yValue }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+
         }
     }
 }

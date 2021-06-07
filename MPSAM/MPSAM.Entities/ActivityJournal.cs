@@ -12,5 +12,6 @@ namespace MPSAM.Entities
         public int IDPacient { get; set; }
         public DateTime Data { get; set; }
         public string Activitate { get; set; }
+        public string Descriere { get; set; }
     }
 }

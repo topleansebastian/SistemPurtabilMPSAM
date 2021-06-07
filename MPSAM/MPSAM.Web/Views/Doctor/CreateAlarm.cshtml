@@ -1,0 +1,136 @@
+﻿@model MPSAM.Web.ViewModels.ActivityViewModels.NewAlarm
+
+@{
+    ViewBag.Title = "Create";
+}
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<hr />
+<br />
+
+<br />
+<br />
+<br />
+<div class="container">
+    <center><h2>ADĂUGARE ALARMĂ</h2></center>
+    <br />
+    <br />
+    <form id="createAlarm">
+        <input type="hidden" name="IDPacient" value="@Model.Pacient.ID" />
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Valoare Vizata<span class="text-danger">*</span></label>
+                <select name="ValoareVizata" id="ValoareVizata" class="form-control form-control-lg">
+                    <option value="Puls">Puls</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Umiditate">Umiditate</option>
+                    <option value="ECG">ECG</option>
+                </select>       
+                <label id="lblErrorValoareVizata" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Limita inferioară<span class="text-danger">*</span></label>
+                <textarea name="LimitaInferioara" class="form-control form-control-lg" id="LimitaInferioara"></textarea>
+                <label id="lblErrorLimitaInferioara" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Limita superioară<span class="text-danger">*</span></label>
+                <textarea name="LimitaSuperioara" class="form-control form-control-lg" id="LimitaSuperioara"></textarea>
+                <label id="lblErrorLimitaSuperioara" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <label>Mesaj<span class="text-danger">*</span></label>
+                <textarea name="Mesaj" class="form-control form-control-lg" id="Mesaj"></textarea>
+                <label id="lblErrorMesaj" class="alert-danger"></label>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <button id="saveBtn" type="button" class="Btn">Salvare</button>
+            <button id="cancelBtn" type="button" class="Btn">Anulare</button>
+        </div>
+
+    </form>
+</div>
+<br />
+<br />
+<script>
+
+    $("#saveBtn").click(function () {
+        var reNumber = /^[A-Za-z]+$/;
+        if ($("#Mesaj").val() == "") {
+            sweetAlert("Câmpul mesaj nu este valid", "", "error");
+            document.getElementById('lblErrorMesaj').innerHTML = 'Câmpul nu este valid';
+        } else if ($("#LimitaInferioara").val() == "" || reNumber.test(document.getElementById("LimitaInferioara").value)) {
+            sweetAlert("Câmpul limita inferioara nu este valid", "", "error");
+            document.getElementById('lblErrorLimitaInferioara').innerHTML = 'Câmpul nu este valid';
+        }
+        else if ($("#LimitaSuperioara").val() == "" || reNumber.test(document.getElementById("LimitaSuperioara").value)) {
+            sweetAlert("Câmpul limita superioara nu este valid", "", "error");
+            document.getElementById('lblErrorLimitaSuperioara').innerHTML = 'Câmpul nu este valid';
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Doctor/CreateAlarm',
+                data: $("#createAlarm").serialize()
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusActionTC();
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Failed");
+                });
+        }
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusActionTC();
+    });
+    function focusActionTC() {
+        $('html, body').animate({
+            scrollTop: $("#tableContainer").offset().top - 100
+        }, 1000);
+    }
+</script>
+
+

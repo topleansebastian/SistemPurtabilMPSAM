@@ -99,6 +99,8 @@ namespace MPSAM.Web.ViewModels
         public Doctor ConsultDoctor { get; set; }
         public List<Recommendation> Recommendations { get; set; }
         public List<ActivityJournal> ActivityJournals { get; set; }
+        public List<Alarm> Alarms { get; set; }
+        public List<Monitoring> Monitorings { get; set; }
     }
     public class SelectedPacientsAndDoctors
     {
@@ -106,5 +108,9 @@ namespace MPSAM.Web.ViewModels
         public IEnumerable<Pacient> Pacients { get; set; }
         public List<Doctor> Doctors { get; set; }
     }
-    
+    public class FisaPacientPDF
+    {
+        public Pacient Pacient { get; set; }
+        public List<Consultation> Consultations { get; set; }
+    }
 }

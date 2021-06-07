@@ -52,29 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBContext.cs" />
-    <Compile Include="Migrations\202105051712365_New.cs" />
-    <Compile Include="Migrations\202105051712365_New.designer.cs">
-      <DependentUpon>202105051712365_New.cs</DependentUpon>
+    <Compile Include="Migrations\202105241750443_NewDB.cs" />
+    <Compile Include="Migrations\202105241750443_NewDB.designer.cs">
+      <DependentUpon>202105241750443_NewDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105051859317_AddColumns.cs" />
-    <Compile Include="Migrations\202105051859317_AddColumns.designer.cs">
-      <DependentUpon>202105051859317_AddColumns.cs</DependentUpon>
+    <Compile Include="Migrations\202105271016527_Descr.cs" />
+    <Compile Include="Migrations\202105271016527_Descr.designer.cs">
+      <DependentUpon>202105271016527_Descr.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105051954421_ModDate.cs" />
-    <Compile Include="Migrations\202105051954421_ModDate.designer.cs">
-      <DependentUpon>202105051954421_ModDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105081038362_RecomTable.cs" />
-    <Compile Include="Migrations\202105081038362_RecomTable.designer.cs">
-      <DependentUpon>202105081038362_RecomTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105111927514_AddConsult.cs" />
-    <Compile Include="Migrations\202105111927514_AddConsult.designer.cs">
-      <DependentUpon>202105111927514_AddConsult.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105151333109_AddTables.cs" />
-    <Compile Include="Migrations\202105151333109_AddTables.designer.cs">
-      <DependentUpon>202105151333109_AddTables.cs</DependentUpon>
+    <Compile Include="Migrations\202105311417565_Mon.cs" />
+    <Compile Include="Migrations\202105311417565_Mon.designer.cs">
+      <DependentUpon>202105311417565_Mon.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,23 +78,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105051712365_New.resx">
-      <DependentUpon>202105051712365_New.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105241750443_NewDB.resx">
+      <DependentUpon>202105241750443_NewDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105051859317_AddColumns.resx">
-      <DependentUpon>202105051859317_AddColumns.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105271016527_Descr.resx">
+      <DependentUpon>202105271016527_Descr.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105051954421_ModDate.resx">
-      <DependentUpon>202105051954421_ModDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105081038362_RecomTable.resx">
-      <DependentUpon>202105081038362_RecomTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105111927514_AddConsult.resx">
-      <DependentUpon>202105111927514_AddConsult.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105151333109_AddTables.resx">
-      <DependentUpon>202105151333109_AddTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105311417565_Mon.resx">
+      <DependentUpon>202105311417565_Mon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

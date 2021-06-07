@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+    </script>
     <style>
         .button {
             background-color: #00BCD4;
@@ -26,7 +30,7 @@
 <body>
 
     <div class="container">
-        <button class="button">Printare fisa pacient</button>
+        <button class="button" onclick="location.href='@Url.Action("Pdf", "Doctor", new { ID = @Model.Pacient.ID })'">Printare fișă pacient</button>
         <br />
         <br />
         <ul class="nav nav-tabs">
@@ -35,6 +39,8 @@
             <li><a data-toggle="tab" href="#menu2">Consultații</a></li>
             <li><a data-toggle="tab" href="#menu3">Recomandări</a></li>
             <li><a data-toggle="tab" href="#menu4">Activități</a></li>
+            <li><a data-toggle="tab" href="#menu5">Alarme</a></li>
+            <li><a data-toggle="tab" href="#menu6">Valori monitorizate</a></li>
         </ul>
 
         <div class="tab-content">
@@ -149,6 +155,150 @@
                         </div>
                     </div>
                 }
+                <br />
+            </div>
+            <div id="menu5" class="tab-pane fade">
+                <br />
+                @foreach (var alarm in Model.Alarms)
+                {
+                    <div class="card">
+                        <div class="card-header" style="font-size:15px;">
+                            Alarma se va activa la depistarea unei valori între @alarm.LimitaInferioara și @alarm.LimitaSuperioara
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size:15px;">Mesaj: @alarm.Mesaj</h5>
+                            <br />
+                            <span class="text-danger">
+                                <i class="fa fa-times" style="font-size:20px;" aria-hidden="true" data-idPacient="@Model.Pacient.ID" data-id="@alarm.ID" data-toggle="tooltipDeleteAlarmBtn" title="Ștergere alarma" id="deleteAlarmBtn"></i>
+                            </span>
+                        </div>
+                    </div>
+                }
+                <br />
+            </div>
+            <div id="menu6" class="tab-pane fade">
+                <br />
+                <div class="form-row">
+                    <div class="col">
+                        <div id="container" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetPulsData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Puls"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = { title: 'Istoricul pulsului' };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('container'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                            google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                    <div class="col">
+                        <div id="containerTemperatura" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetTemperaturaData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Temperatura"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoricul temperanturii ambientale',
+                                colors: ['yellow', 'green']
+                            };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('containerTemperatura'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                    google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+
+                        <div id="containerUmiditate" style="width: 200px; height: 200px; margin: 0 auto">
+                        </div>
+                        <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetUmiditateData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Umiditate"]];
+                            result.xData.forEach((v, i) => {
+                                value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([value, result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoric umiditate',
+                                colors: ['green', 'red']
+                            };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('containerUmiditate'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                    google.charts.setOnLoadCallback(drawChart);
+                        </script>
+                    </div>
+                </div>
+                <CENTER><h5 style="font-weight:bold;">Istoric ECG</h5></CENTER>
+                <div id="containerEcg" style="width: 1000px; height: 200px; margin: 0 auto">
+                </div>
+                <script language="JavaScript">
+                    function drawChart() {
+                        $.get("/Doctor/GetEcgData/@Model.Pacient.ID", function (result) {
+
+                            var list = [["Data", "Ecg"]];
+                            result.xData.forEach((v, i) => {
+                                //value = new Date(parseInt(result.yData[i].replace("/Date(", "").replace(")/", ""), 10));
+                                list.push([result.yData[i], result.xData[i]])
+                            })
+                            var data = google.visualization.arrayToDataTable(
+                                list
+                            );
+                            var options = {
+                                title: 'Istoric ecg',
+                                colors: ['red', 'green'],
+                                chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
+                                height: 500,
+                                width: 1500
+                            };
+
+                            // Instantiate and draw the chart.
+                            var chart = new google.visualization.LineChart(document.getElementById('containerEcg'));
+                            chart.draw(data, options);
+                        })
+
+                    }
+                    google.charts.setOnLoadCallback(drawChart);
+                </script>
+
                 <br />
             </div>
             <div id="menu2" class="tab-pane fade">
@@ -269,6 +419,41 @@
                             window.location.replace(response.redirectUrl);
 
                             swal("Activitatea a fost ștersă", {
+                                icon: "success",
+                            });
+                        })
+                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Failed");
+                        });
+                }
+            });
+    });
+    $("#deleteAlarmBtn").click(function () {
+        swal({
+            title: "Confirmare ștergere",
+            text: "În urma ștergerii, alarma va fi ștearsă",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Doctor/DeleteAlarm',
+                        data: {
+                            ID: $(this).attr('data-id'),
+                            IDPacient: $(this).attr('data-idPacient'),
+                        },
+                        success: function (response) {
+                            window.location.replace(response.redirectUrl);
+                        }
+                    })
+                        .done(function (response) {
+                            //$("#tableContainer").html(response);
+                            window.location.replace(response.redirectUrl);
+
+                            swal("Alarma a fost ștersă", {
                                 icon: "success",
                             });
                         })
