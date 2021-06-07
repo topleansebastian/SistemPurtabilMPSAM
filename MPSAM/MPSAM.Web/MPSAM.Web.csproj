@@ -53,6 +53,9 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -144,6 +147,7 @@
     <Compile Include="ViewModels\SharedViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\banner.png" />
     <Content Include="Content\blueKardia.png" />
     <Content Include="Content\blueKardiaDash.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -195,6 +199,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\css\material-dashboard.css.map" />
@@ -234,6 +242,7 @@
     <Content Include="Content\js\material-dashboard.js.map" />
     <Content Include="Content\chosen_v1.8.7\composer.json" />
     <Content Include="Content\chosen_v1.8.7\LICENSE.md" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -259,6 +268,7 @@
     <Content Include="Views\Doctor\CreateRecommendation.cshtml" />
     <Content Include="Views\Doctor\CreateActivity.cshtml" />
     <Content Include="Views\Doctor\CreateAlarm.cshtml" />
+    <Content Include="Views\Doctor\GetDataForFisaPacient.cshtml" />
     <None Include="Views\Doctor\_Layout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

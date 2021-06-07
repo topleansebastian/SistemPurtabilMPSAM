@@ -1,0 +1,164 @@
+﻿@model MPSAM.Web.ViewModels.FisaPacientPDF
+@{
+    ViewBag.Title = "GetDataForFisaPacient";
+    Layout = null;
+}
+<head>
+    <link rel="icon" type="image/png" href="../Content/favicon.png">
+</head>
+<div class="container">
+    <img src="~/Content/banner.png" />
+    <center><h1>Fișă pacient</h1></center>
+    <br />
+    <br />
+    <h3>Date personale</h3>
+    <table class="table table-bordered" style="font-size:20px;">
+        <tbody>
+            <tr>
+                <td>Nume</td>
+                <td>@Model.Pacient.Nume @Model.Pacient.Prenume</td>
+            </tr>
+            <tr>
+                <td>CNP</td>
+                <td>@Model.Pacient.CNP</td>
+            </tr>
+            <tr>
+                <td>Sex</td>
+                <td>@Model.Pacient.Sex</td>
+            </tr>
+            <tr>
+                <td>Data nasterii</td>
+                <td>@Model.Pacient.DataNasterii</td>
+            </tr>
+            <tr>
+                <td>Varsta</td>
+                <td>@Model.Pacient.Varsta</td>
+            </tr>
+            <tr>
+                <td>Adresa</td>
+                <td>@Model.Pacient.Adresa, @Model.Pacient.Localitate, @Model.Pacient.Judet</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.Pacient.Email</td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>@Model.Pacient.Telefon</td>
+            </tr>
+            <tr>
+                <td>Ocupatie</td>
+                <td>@Model.Pacient.Ocupatie</td>
+            </tr>
+            <tr>
+                <td>Loc de munca</td>
+                <td>@Model.Pacient.LocDeMunca</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Istoric medical</h3>
+    <table class="table table-bordered" style="font-size:20px;">
+        <tbody>
+            <tr>
+                <td>Grup sanguin</td>
+                <td>@Model.Pacient.GrupSanguin</td>
+            </tr>
+            <tr>
+                <td>Rh</td>
+                <td>@Model.Pacient.RH</td>
+            </tr>
+            <tr>
+                <td>Alergii</td>
+                <td>@Model.Pacient.Alergii</td>
+            </tr>
+            <tr>
+                <td>Inaltime</td>
+                <td>@Model.Pacient.Inaltime cm</td>
+            </tr>
+            <tr>
+                <td>Greutate</td>
+                <td>@Model.Pacient.Greutate kg</td>
+            </tr>
+            <tr>
+                <td>Tegumente mucoase</td>
+                <td>@Model.Pacient.TegumenteMucoase</td>
+            </tr>
+            <tr>
+                <td>Tesut subcutanat</td>
+                <td>@Model.Pacient.TesutSubcutanat</td>
+            </tr>
+            <tr>
+                <td>Ganglioni</td>
+                <td>@Model.Pacient.Ganglioni</td>
+            </tr>
+            <tr>
+                <td>Ant. fiziologice</td>
+                <td>@Model.Pacient.AntecedenteFiziologice</td>
+            </tr>
+            <tr>
+                <td>Ant. patologice</td>
+                <td>@Model.Pacient.LocDeMunca</td>
+            </tr>
+            <tr>
+                <td>Conditii mediu</td>
+                <td>@Model.Pacient.ConditiiMediu</td>
+            </tr>
+            <tr>
+                <td>Internari</td>
+                <td>@Model.Pacient.Internari</td>
+            </tr>
+            <tr>
+                <td>Motive internari</td>
+                <td>@Model.Pacient.MotiveInternari</td>
+            </tr>
+            <tr>
+                <td>Zgomot</td>
+                <td>@Model.Pacient.Zgomot</td>
+            </tr>
+            <tr>
+                <td>Suflu</td>
+                <td>@Model.Pacient.Suflu</td>
+            </tr>
+            <tr>
+                <td>Frecventa</td>
+                <td>@Model.Pacient.Frecventa</td>
+            </tr>
+            <tr>
+                <td>Aritmii</td>
+                <td>@Model.Pacient.Aritmii</td>
+            </tr>
+            <tr>
+                <td>Aritmii</td>
+                <td>@Model.Pacient.Aritmii</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Consultații</h3>
+    @foreach (var consult in Model.Consultations)
+    {
+        <table class="table table-bordered" style="font-size:20px;">
+            <tbody>
+                <tr>
+                    <td>Numar consultatie</td>
+                    <td>#@consult.ID</td>
+                </tr>
+                <tr>
+                    <td>Data consultatie</td>
+                    <td>@consult.Data.ToString("dddd, dd MMMM yyyy")</td>
+                </tr>
+                <tr>
+                    <td>Simptome</td>
+                    <td>@consult.Simptome</td>
+                </tr>
+                <tr>
+                    <td>Diagnostic</td>
+                    <td>@consult.Diagnostic</td>
+                </tr>
+                <tr>
+                    <td>Tratament</td>
+                    <td>@consult.Tratament</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>

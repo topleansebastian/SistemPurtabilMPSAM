@@ -108,5 +108,9 @@ namespace MPSAM.Web.ViewModels
         public IEnumerable<Pacient> Pacients { get; set; }
         public List<Doctor> Doctors { get; set; }
     }
-    
+    public class FisaPacientPDF
+    {
+        public Pacient Pacient { get; set; }
+        public List<Consultation> Consultations { get; set; }
+    }
 }

@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Web.Helpers;
+using System.Net;
+using Rotativa;
 
 namespace MPSAM.Web.Controllers
 {
@@ -238,6 +240,20 @@ namespace MPSAM.Web.Controllers
             model.Alarms = DoctorServices.ClassObject.GetAlarmsByPacientID(ID);
             model.Monitorings = DoctorServices.ClassObject.GetMonitoringsByPacientID(ID);
 
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult Pdf(int ID)
+        {
+            return new ActionAsPdf("GetDataForFisaPacient", new { ID = ID }) { PageSize = Rotativa.Options.Size.A4 };
+        }
+
+        public ActionResult GetDataForFisaPacient(int ID)
+        {
+            FisaPacientPDF model = new FisaPacientPDF();
+            model.Pacient = PacientServices.ClassObject.GetPacient(ID);
+            model.Consultations = ConsultationServices.ClassObject.GetConsultationsByPacientID(ID);
+            
             return View(model);
         }
         [HttpGet]
